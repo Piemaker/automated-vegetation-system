@@ -1,10 +1,19 @@
 const express = require('express')
 const app = express()
-const Temperature = require('../models/Temperature')//import model 
+const Temperature = require('../models/temperature')//import model 
 
-
+//get all temperature data from db
 app.get('/temperature', (req, res) => {
-  res.send("Hey hey hey!")
+//query model
+Temperature.find({},(err,data)=>{
+  if(err){
+    res.send(err.message)
+  }
+  else{
+  res.send(data)
+
+  }
+})
 });
 
 module.exports = app

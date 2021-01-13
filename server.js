@@ -9,24 +9,6 @@ const faker = require('faker');//for dummy generation
 const bodyParser = require("body-parser")//used to parse form responses
 const mongoose = require("mongoose")//for database schema building
 
-const generateDummyData = ()=>{
-var dummyData = [];
-for(let i = 0; i < 50; i++){
-dummyData.push(
-  {value : faker.random.number({
-    'min': 0,
-    'max': 100
-}),
-  date : faker.date.between('2021-1-15','2021-3-15')
-})
-}
-return dummyData;
-}
-const dummyData = generateDummyData();
-
-
-console.table(dummyData);
-
 //mount body parser
 app.use(bodyParser.urlencoded({extended: false}))
 
@@ -40,10 +22,6 @@ db.once('open', function() {
  console.log("Connected to DB")
 });
 
-// enable CORS (https://en.wikipedia.org/wiki/Cross-origin_resource_sharing)
-// // so that your API is remotely testable by FCC 
-// var cors = require('cors');
-// app.use(cors({optionsSuccessStatus: 200}));  // some legacy browsers choke on 204
 
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static(path.join(__dirname, 'public')));
