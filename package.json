@@ -1,5 +1,5 @@
 {
-  "name": "automated-vegetation-system-1",
+  "name": "automated-vegetation-system",
   "version": "1.0.0",
   "description": "Graduation project aim to store and graph data received from an embedded system",
   "main": "server.js",
@@ -14,7 +14,10 @@
   "author": "Piemaker",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "express": "^4.17.1",
+    "faker": "^5.1.0",
+    "mongoose": "^5.11.11",
     "npm": "^6.14.11"
   }
 }
