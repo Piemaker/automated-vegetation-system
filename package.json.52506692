@@ -1,0 +1,20 @@
+{
+  "name": "automated-vegetation-system-1",
+  "version": "1.0.0",
+  "description": "Graduation project aim to store and graph data received from an embedded system",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "mongodb",
+    "express"
+  ],
+  "author": "Piemaker",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "npm": "^6.14.11"
+  }
+}
