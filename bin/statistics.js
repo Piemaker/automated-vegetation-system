@@ -277,6 +277,11 @@ nextButton.setAttribute("style","visibility: visible")
 firstButton.setAttribute("style","visibility: visible")
 lastButton.setAttribute("style","visibility: visible")
 previousButton.setAttribute("style","visibility: visible")
+        lastButton.disabled = false
+        nextButton.disabled = false
+        previousButton.disabled = false
+        firstButton.disabled = false
+
 }
 //hide/unhide buttons when response is []
 const hideButtons = (event)=> {
@@ -286,12 +291,19 @@ const lastButton = document.getElementById( "last-button");
 const firstButton = document.getElementById( "first-button");
   if(event.target.id == "previous-button" || event.target.id == "last-button"){
         previousButton.setAttribute("style","visibility: hidden")
+        previousButton.disabled = true
         lastButton.setAttribute("style","visibility: hidden")
+        lastButton.disabled = true
+        
   }
   else if(event.target.id == "next-button" || event.target.id == "first-button"){
     
           nextButton.setAttribute("style","visibility: hidden")
+          nextButton.disabled = true
           firstButton.setAttribute("style","visibility: hidden")
+          firstButton.disabled = true
+    
   }
 }
+
 

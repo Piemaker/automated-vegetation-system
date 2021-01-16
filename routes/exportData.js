@@ -16,6 +16,7 @@ Temperature.find({})
 });
 
 app.post('/temperature',(req,res)=>{
+  //res.header("Access-Control-Allow-Origin:*")
     const {action ,minDate, maxDate} = req.body;
     console.log(req.body)
 //check action type
