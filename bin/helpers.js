@@ -14,6 +14,21 @@ dummyData.push(
 return dummyData;
 }
 
+//generate dummy with constant time steps
+let dummyDateAndValue = (baseDate,deltaDate,minValue,maxValue,size)=>{
+let newDate =  baseDate;
+let dummyData = [];
+while(size > 0){
+
+dummyData.push({value :( Math.floor(Math.random() * (maxValue - minValue) + minValue)),date : new Date(newDate.getTime() + deltaDate*60000) })
+newDate = new Date(newDate.getTime() + deltaDate*60000)
+size--;
+
+}
+return dummyData;
+}
+
+
 //save dummy data in db collection
 const insertDummy = (dummyData,modelName)=>{
 modelName.insertMany(dummyData, function (err, res) {
@@ -38,5 +53,6 @@ modelName.deleteMany({}, function(err) {
 
     //export function to be available to entire project
     exports.generateDummyData = generateDummyData;
+    exports.dummyDateAndValue = dummyDateAndValue;
     exports.insertDummy = insertDummy;
     exports.purgeModel = purgeModel;
