@@ -1,7 +1,10 @@
 const express = require('express')
 const app = express()
-//import model 
-const Temperature = require('../models/temperature')
+//import models 
+const {Temperature} = require('../models/Base')
+const {PH} = require('../models/Base')
+const {ElectricConductivity} = require('../models/Base')
+
 //get all temperature data from db
 app.get('/temperature', (req, res) => {
 //query model
@@ -16,6 +19,7 @@ Temperature.find({})
 });
 
 app.post('/temperature',(req,res)=>{
+
   //res.header("Access-Control-Allow-Origin:*")
     const {action ,minDate, maxDate} = req.body;
     console.log(req.body)
