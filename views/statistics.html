@@ -5,6 +5,8 @@
   <title>CodePen - Bar Graph</title>
   <link rel="stylesheet" href="./statistics.css">
  
+ <script src="https://kit.fontawesome.com/a87a7d7cfe.js" crossorigin="anonymous"></script>
+
 <!-- partial:index.partial.html -->
   <!-- <script defer src="/home/runner/automated-vegetation-system/node_modules/js/all.js"></script>
   <script defer src="/home/runner/automated-vegetation-system/node_modules/js/all.js"></script>
@@ -23,10 +25,16 @@
 <body>
   <div id = 'main' class = "center">
     <div id ="svg" class = "svg-container"></div>
-    <div id = radio-div>
-      <input type = "radio" id = "temperature-radio" name = "graphs" checked="checked" value = "Temperature"></input>
-    <input type = "radio" id = "ph-radio" name = "graphs"  value = "PH"></input>
-  <input type = "radio" id = "electric-radio" name = "graphs" value = "ElectricConductivity"></input>
+     <div id = radio-div>
+      <input type = "radio" class = "radio-button" id = "temperature-radio" name = "graphs" checked="checked" value = "Temperature"></input>
+            <label for="temperature-radio"><i class="fas fa-temperature-high"></i></label>
+
+    <input type = "radio" id = "ph-radio" name = "graphs" class = "radio-button" value = "PH"></input>
+            <label for="ph-radio"><i class="fas fa-thermometer"></i></label>
+  
+  <input type = "radio" id = "electric-radio" name = "graphs" class = "radio-button" value = "ElectricConductivity"></input>
+            <label for="electric-radio"><i class="fas fa-bolt"></i></label>
+  
     </div>
     <div id = "buttons">
        <button id = "last-button" class = "limit-button"><<</button>

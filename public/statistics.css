@@ -1,8 +1,35 @@
 //@import url('../node_modules/font-awesome/css/font-awesome.min.css'); 
 
+.radio-button{
+    margin:0;
+    padding:0;
+    -webkit-appearance:none;
+       -moz-appearance:none;
+            appearance:none;
+}
+
+.disable-select {
+    user-select: none; /* supported by Chrome and Opera */
+   -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer/Edge */
+}
+
+ i.fas
+  {
+    font-size: 20px;
+    
+  }
+ i.fas:hover
+  {
+     transform: scale(1.2);
+    
+  }
 body{
  
-background: #c1c7c5;
+
+
 }
 .center{
    display: flex;
@@ -20,6 +47,12 @@ background: #c1c7c5;
   border: none !important;
   font-size:22px;
   padding: 8px;
+  font-weight : bolder;
+  outline :none;
+}
+.limit-button:hover{
+  transform: scale(1.2);
+  
 }
 .svg-container{
   min-width: 80vw;
@@ -54,8 +87,7 @@ fill: #cc420a;
   -webkit-box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.75);
 -moz-box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.75);
 box-shadow: 0px 0px 18px 0px rgba(0,0,0,0.75);
-  font-size: 18px;
-}
+  font-size: 18px;}
 
   .fade-in {
 animation: fadeIn ease 0.5s;
