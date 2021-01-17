@@ -1,3 +1,211 @@
+//graph values
+const TemperatureThreshold = {min: 20, max: 50}
+const TemperatureTitles = {x: "Date", y: "Degree Celsius °C"}
+const PHThreshold = {min: "6", max: "8"}
+const PHTitles = {x: "Date", y: "PH Level"}
+const ElectricThreshold = {min: 10, max: 30}
+const ElectricTitles = {x: "Date", y: "Electric Conductivity mV"}
+//check which graph radio is checked
+const checkCheckedRadio = ()=>{
+  const radioDiv = document.getElementById('radio-div')
+  var htmlCollection = radioDiv.getElementsByTagName("input");
+  console.log(htmlCollection)
+  //you can't use filter on an htmlCollection must convert it into a normal array
+  var radioButtonsArray = [...htmlCollection]
+  var checkedRadio = radioButtonsArray.filter(radio => radio.checked)
+  console.log("Checked radio button is :",checkedRadio[0].value)
+  return checkedRadio[0].value
+}
+//assign data of graph based on radio check
+const assingGraphData = (dataSet)=>{
+ const checkedRadio =  checkCheckedRadio()
+ if(checkedRadio == "Temperature"){
+   return graph(dataSet,TemperatureThreshold,TemperatureTitles)
+ }
+  else if(checkedRadio == "PH"){
+   return graph(dataSet,PHThreshold,PHTitles)
+    
+  }
+  else if (checkedRadio == "ElectricConductivity"){
+   return graph(dataSet,ElectricThreshold,ElectricTitles)
+    
+  }
+}
+//get the last and firt dates inside rects to get whatever data is less than them
+const getDates = ()=>{
+  const svg = d3.select("svg")
+  const lastRectDate = svg.attr("max-date")
+  const firstRectDate = svg.attr("min-date")
+  console.log( "first rect value",firstRectDate,"last rect  value",lastRectDate)
+  return {lastRectDate: lastRectDate , firstRectDate : firstRectDate}
+}
+//construct payload based on user choices
+const constructPayload = (event)=>{
+  var data = null;
+  var dateObj = getDates();
+   if(event.target.id == "previous-button"){
+  //construct body of post
+   data = {action : "previous" ,modelName: checkCheckedRadio() ,minDate : dateObj.firstRectDate, maxDate : dateObj.lastRectDate}
+ }
+  else if(event.target.id == "next-button"){
+   data = {action : "next" , modelName: checkCheckedRadio()  ,minDate : dateObj.firstRectDate, maxDate : dateObj.lastRectDate}
+    
+  }
+  else if(event.target.id == "last-button"){
+   data = {action : "last" , modelName: checkCheckedRadio()  ,minDate : dateObj.firstRectDate, maxDate : dateObj.lastRectDate}
+    
+  }
+  else if (event.target.id == "first-button"){
+   data = {action : "first" , modelName: checkCheckedRadio()  ,minDate : dateObj.firstRectDate, maxDate : dateObj.lastRectDate}
+    
+  }
+  console.log(data)
+  return data;
+  
+}
+
+
+//event handler for radio button
+const handleChange = ()=>{
+  let data = null;
+  //construct payload
+  data = {action : "radio" , modelName: checkCheckedRadio()  ,minDate : "", maxDate : ""}
+  
+  //create request
+fetch('https://automated-vegetation-system.piemaker1.repl.co/api/exportData/', {
+  method: 'POST', // or 'PUT'
+  headers: {
+    'Content-Type': 'application/json',
+    
+  },
+  mode: 'cors',
+  
+  body: JSON.stringify(data),
+})
+.then(response => response.json())
+.then(data => {
+  console.log('Success:', data);
+ //graph data 
+  d3.select("svg").remove()
+  const dataSet = data.map(x=> {return{value: x.value,date:new Date(Date.parse(x.date))}})
+  //unhide any buttons from page buttons
+  unhideButtons()
+  //hide the next buttons
+  nextButton.setAttribute("style","visibility: hidden")
+  firstButton.setAttribute("style","visibility: hidden")
+  //redraw graph
+  assingGraphData(dataSet)
+ 
+  
+  
+ 
+})
+.catch((error) => {
+  console.error('Error:', error);
+});
+}
+
+//event handler for page buttons
+const handleClick = (event)=>{
+
+  let data = null;
+  //construct payload
+  data = constructPayload(event);
+  
+  //create request
+fetch('https://automated-vegetation-system.piemaker1.repl.co/api/exportData/', {
+  method: 'POST', // or 'PUT'
+  headers: {
+    'Content-Type': 'application/json',
+    
+  },
+  mode: 'cors',
+  
+  body: JSON.stringify(data),
+})
+.then(response => response.json())
+.then(data => {
+  console.log('Success:', data);
+ //graph data if there still any
+if(data.length != 0){
+  //unhide all buttons
+  unhideButtons()
+  d3.select("svg").remove()
+  const dataSet = data.map(x=> {return{value: x.value,date:new Date(Date.parse(x.date))}})
+  
+  //redraw graph
+  assingGraphData(dataSet)
+  
+  
+  }
+  else{
+    //hide specified buttons if data has reached the end
+    hideButtons(event)
+  }
+ 
+})
+.catch((error) => {
+  console.error('Error:', error);
+});
+ 
+}
+
+
+
+//create event handler for page buttons
+const previousButton = document.getElementById( "previous-button");
+const nextButton = document.getElementById( "next-button");
+const lastButton = document.getElementById( "last-button");
+const firstButton = document.getElementById( "first-button");
+previousButton.addEventListener('click',handleClick);
+nextButton.addEventListener('click',handleClick);
+lastButton.addEventListener('click',handleClick);
+firstButton.addEventListener('click',handleClick);
+
+//create event handler for radio buttons
+const temperatureRadio = document.getElementById( "temperature-radio");
+const phRadio = document.getElementById( "ph-radio");
+const electricRadio = document.getElementById( "electric-radio");
+temperatureRadio.addEventListener('change',handleChange);
+phRadio.addEventListener('change',handleChange);
+electricRadio.addEventListener('change',handleChange);
+
+//the latest data is available by default so hide next and first buttons
+nextButton.setAttribute("style","visibility: hidden")
+firstButton.setAttribute("style","visibility: hidden")
+
+const unhideButtons = ()=>{
+const previousButton = document.getElementById( "previous-button");
+const nextButton = document.getElementById( "next-button");
+const lastButton = document.getElementById( "last-button");
+const firstButton = document.getElementById( "first-button");
+nextButton.setAttribute("style","visibility: visible")
+firstButton.setAttribute("style","visibility: visible")
+lastButton.setAttribute("style","visibility: visible")
+previousButton.setAttribute("style","visibility: visible")
+}
+//hide/unhide buttons when response is []
+const hideButtons = (event)=> {
+const previousButton = document.getElementById( "previous-button");
+const nextButton = document.getElementById( "next-button");
+const lastButton = document.getElementById( "last-button");
+const firstButton = document.getElementById( "first-button");
+  if(event.target.id == "previous-button" || event.target.id == "last-button"){
+        previousButton.setAttribute("style","visibility: hidden")
+        lastButton.setAttribute("style","visibility: hidden")
+  }
+  else if(event.target.id == "next-button" || event.target.id == "first-button"){
+    
+          nextButton.setAttribute("style","visibility: hidden")
+          firstButton.setAttribute("style","visibility: hidden")
+  }
+}
+
+
+
+
+
+
 const graph = (dataSet,threshold,titles)=>{
   
   
@@ -15,7 +223,7 @@ const minX =  d3.min(dataSet, (d)=> d.date);
 const maxY = d3.max(dataSet, d => d.value);
 const minY = d3.min(dataSet, d => d.value);
  
-  
+ 
 
   console.log("Maximum x value "+maxX);
   console.log("Minimum x value "+ minX);
@@ -185,125 +393,7 @@ req.onload = function(){
   const json = JSON.parse(req.responseText);
   const dataSet = json.map(x=> {return{value: x.value,date:new Date(Date.parse(x.date))}})
   console.table(dataSet);
-  graph(dataSet,{min:15, max:60},{x:"Date",y:"Values"})
-
+  assingGraphData(dataSet)
   }
-
-
-
-//event handler for prev/next buttons
-const handleClick = (event)=>{
-
-  //todo know why rects order is reversed
-  //get the last and firt dates inside rects to get whatever data is less than them
-  const svg = d3.select("svg")
- const lastRectDate = svg.attr("max-date")
-  const firstRectDate = svg.attr("min-date")
-  console.log( "first rect value",firstRectDate,"last rect value",lastRectDate)
-  let data = null;
-  //check which button is clicked
-  if(event.target.id == "previous-button"){
-  //construct body of post
-   data = {action : "previous" ,minDate : firstRectDate, maxDate : lastRectDate}
- }
-  else if(event.target.id == "next-button"){
-   data = {action : "next" ,minDate : firstRectDate, maxDate : lastRectDate}
-    
-  }
-  else if(event.target.id == "last-button"){
-   data = {action : "last" ,minDate : firstRectDate, maxDate : lastRectDate}
-    
-  }
-  else if (event.target.id == "first-button"){
-   data = {action : "first" ,minDate : firstRectDate, maxDate : lastRectDate}
-    
-  }
-
-  
-  //create request
-fetch('https://automated-vegetation-system.piemaker1.repl.co/api/exportData/', {
-  method: 'POST', // or 'PUT'
-  headers: {
-    'Content-Type': 'application/json',
-    
-  },
-  body: JSON.stringify(data),
-})
-.then(response => response.json())
-.then(data => {
-  console.log('Success:', data);
- //graph data if there still any
-if(data.length != 0){
-  unhideButtons()
-  d3.select("svg").remove()
-  const dataSet = data.map(x=> {return{value: x.value,date:new Date(Date.parse(x.date))}})
-  
-  //redraw graph
-  graph(dataSet,{min:15, max:60},{x:"Date",y:"Values"})
-  
-  
-  }
-  else{
-    hideButtons(event)
-  }
- 
-})
-.catch((error) => {
-  console.error('Error:', error);
-});
-  
-  
-}
-
-//create event handler for previous button
-const previousButton = document.getElementById( "previous-button");
-const nextButton = document.getElementById( "next-button");
-const lastButton = document.getElementById( "last-button");
-const firstButton = document.getElementById( "first-button");
-previousButton.addEventListener('click',handleClick);
-nextButton.addEventListener('click',handleClick);
-lastButton.addEventListener('click',handleClick);
-firstButton.addEventListener('click',handleClick);
-
-nextButton.setAttribute("style","visibility: hidden")
-firstButton.setAttribute("style","visibility: hidden")
-
-const unhideButtons = ()=>{
-const previousButton = document.getElementById( "previous-button");
-const nextButton = document.getElementById( "next-button");
-const lastButton = document.getElementById( "last-button");
-const firstButton = document.getElementById( "first-button");
-nextButton.setAttribute("style","visibility: visible")
-firstButton.setAttribute("style","visibility: visible")
-lastButton.setAttribute("style","visibility: visible")
-previousButton.setAttribute("style","visibility: visible")
-        lastButton.disabled = false
-        nextButton.disabled = false
-        previousButton.disabled = false
-        firstButton.disabled = false
-
-}
-//hide/unhide buttons when response is []
-const hideButtons = (event)=> {
-const previousButton = document.getElementById( "previous-button");
-const nextButton = document.getElementById( "next-button");
-const lastButton = document.getElementById( "last-button");
-const firstButton = document.getElementById( "first-button");
-  if(event.target.id == "previous-button" || event.target.id == "last-button"){
-        previousButton.setAttribute("style","visibility: hidden")
-        previousButton.disabled = true
-        lastButton.setAttribute("style","visibility: hidden")
-        lastButton.disabled = true
-        
-  }
-  else if(event.target.id == "next-button" || event.target.id == "first-button"){
-    
-          nextButton.setAttribute("style","visibility: hidden")
-          nextButton.disabled = true
-          firstButton.setAttribute("style","visibility: hidden")
-          firstButton.disabled = true
-    
-  }
-}
 
 
