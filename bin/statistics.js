@@ -179,7 +179,7 @@ svg.append("g")
 
 //call graph method
 const req = new XMLHttpRequest();
-req.open("GET",'https://automated-vegetation-system.piemaker1.repl.co/api/exportData/temperature',true);
+req.open("GET",'https://automated-vegetation-system.piemaker1.repl.co/api/exportData/',true);
 req.send();
 req.onload = function(){
   const json = JSON.parse(req.responseText);
@@ -221,7 +221,7 @@ const handleClick = (event)=>{
 
   
   //create request
-fetch('https://automated-vegetation-system.piemaker1.repl.co/api/exportData/temperature', {
+fetch('https://automated-vegetation-system.piemaker1.repl.co/api/exportData/', {
   method: 'POST', // or 'PUT'
   headers: {
     'Content-Type': 'application/json',

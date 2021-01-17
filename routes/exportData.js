@@ -5,9 +5,21 @@ const {Temperature} = require('../models/Base')
 const {PH} = require('../models/Base')
 const {ElectricConductivity} = require('../models/Base')
 
-//get all temperature data from db
-app.get('/temperature', (req, res) => {
-//query model
+//get all selected model data from db
+app.get('/', (req, res) => {
+let model;
+const {action , minDate, maxDate} = req.body;
+//check which model is needed for query
+// if(modelName == "Temperature"){
+//   model = Temperature;
+// }
+// else if (modelName == "PH"){
+//   model = PH;
+// }
+// else if (modelName == "ElectricConductivity"){
+//   model = ElectricConductivity;
+// }
+//query model 
 Temperature.find({})
 .select("-_id value date")
 .sort({"date":-1})
@@ -18,15 +30,25 @@ Temperature.find({})
 .catch(err=> res.send(err.message))
 });
 
-app.post('/temperature',(req,res)=>{
+app.post('/',(req,res)=>{
 
   //res.header("Access-Control-Allow-Origin:*")
-    const {action ,minDate, maxDate} = req.body;
+    const {action , modelName , minDate, maxDate} = req.body;
+    let model;
     console.log(req.body)
+    if(modelName == "Temperature"){
+  model = Temperature;
+}
+else if (modelName == "PH"){
+  model = PH;
+}
+else if (modelName == "ElectricConductivity"){
+  model = ElectricConductivity;
+}
 //check action type
 if(action == "previous")
 {
-Temperature.find({date: { $lt: new Date(minDate) }})
+model.find({date: { $lt: new Date(minDate) }})
 .select("-_id value date")
 .sort({"date":-1})
 .limit(100)
@@ -35,7 +57,7 @@ Temperature.find({date: { $lt: new Date(minDate) }})
 })
 }
 else if (action == "next"){
-  Temperature.find({date: { $gt: new Date(maxDate) }})
+  model.find({date: { $gt: new Date(maxDate) }})
 .select("-_id value date")
 .sort({"date":1})
 .limit(100)
@@ -44,7 +66,7 @@ else if (action == "next"){
 })
 }
 else if (action == "last"){
-   Temperature.find({})
+   model.find({})
 .select("-_id value date")
 .sort({"date":1})
 .limit(100)
@@ -53,13 +75,23 @@ else if (action == "last"){
 })
 } 
 else if (action == "first"){
-   Temperature.find({})
+   model.find({})
 .select("-_id value date")
 .sort({"date":-1})
 .limit(100)
 .then(data => {
   res.json(data)
 })
+}
+else if (action == "radio"){
+  model.find({})
+.select("-_id value date")
+.sort({"date":-1})
+.limit(100)
+.then(data => {
+  res.json(data)
+})
+
 } 
 })
 
