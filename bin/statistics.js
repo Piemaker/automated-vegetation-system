@@ -33,7 +33,7 @@ const assingGraphData = (dataSet)=>{
 }
 //get the last and firt dates inside rects to get whatever data is less than them
 const getDates = ()=>{
-  const svg = d3.select("svg")
+  const svg = d3.select("#svg-graph")
   const lastRectDate = svg.attr("max-date")
   const firstRectDate = svg.attr("min-date")
   console.log( "first rect value",firstRectDate,"last rect  value",lastRectDate)
@@ -86,7 +86,7 @@ fetch('https://automated-vegetation-system.piemaker1.repl.co/api/exportData/', {
 .then(data => {
   console.log('Success:', data);
  //graph data 
-  d3.select("svg").remove()
+  d3.select("#svg-graph").remove()
   const dataSet = data.map(x=> {return{value: x.value,date:new Date(Date.parse(x.date))}})
   //unhide any buttons from page buttons
   unhideButtons()
@@ -106,7 +106,7 @@ fetch('https://automated-vegetation-system.piemaker1.repl.co/api/exportData/', {
 }
 
 //event handler for page buttons
-const handleClick = (event)=>{
+const handlePageButton = (event)=>{
 
   let data = null;
   //construct payload
@@ -130,7 +130,7 @@ fetch('https://automated-vegetation-system.piemaker1.repl.co/api/exportData/', {
 if(data.length != 0){
   //unhide all buttons
   unhideButtons()
-  d3.select("svg").remove()
+  d3.select("#svg-graph").remove()
   const dataSet = data.map(x=> {return{value: x.value,date:new Date(Date.parse(x.date))}})
   
   //redraw graph
@@ -157,10 +157,10 @@ const previousButton = document.getElementById( "previous-button");
 const nextButton = document.getElementById( "next-button");
 const lastButton = document.getElementById( "last-button");
 const firstButton = document.getElementById( "first-button");
-previousButton.addEventListener('click',handleClick);
-nextButton.addEventListener('click',handleClick);
-lastButton.addEventListener('click',handleClick);
-firstButton.addEventListener('click',handleClick);
+previousButton.addEventListener('click',handlePageButton);
+nextButton.addEventListener('click',handlePageButton);
+lastButton.addEventListener('click',handlePageButton);
+firstButton.addEventListener('click',handlePageButton);
 
 //create event handler for radio buttons
 const temperatureRadio = document.getElementById( "temperature-radio");
@@ -246,6 +246,7 @@ const svg = d3.select("#svg")
 .attr("id","svgElement")
 .attr("max-date",maxX)
 .attr("min-date",minX)
+.attr("id","svg-graph")
 // .attr("width",w)
 // .attr("height",h)
 .attr("class","svg")
