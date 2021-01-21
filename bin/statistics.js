@@ -1,7 +1,7 @@
 //graph values
 const TemperatureThreshold = {min: 20, max: 50}
 const TemperatureTitles = {x: "Date", y: "Degree Celsius °C"}
-const PHThreshold = {min: "6", max: "8"}
+const PHThreshold = {min: 6, max: 8}
 const PHTitles = {x: "Date", y: "PH Level"}
 const ElectricThreshold = {min: 10, max: 30}
 const ElectricTitles = {x: "Date", y: "Electric Conductivity mV"}
@@ -280,7 +280,7 @@ Value: ${d3.select(event.target).attr("data-value")} `)
     if(d < threshold.min){
     return colorArr[0]
   }
-  else if  (d > threshold.min && d < threshold.max){
+  else if  (d >= threshold.min && d <= threshold.max){
     return colorArr[1]
   }
   else {
@@ -339,7 +339,7 @@ svg.append("g")
   .attr("transform","translate(" + padding/2 + "," + h/2 + ") rotate(270)")
   .style("text-anchor","middle")
   .style("font-size","22px")
-  .style("text-decoration","underline")
+  .style("font-weight","bolder")
   .text(titles.y)
 
 
@@ -348,7 +348,7 @@ svg.append("g")
   .attr("transform", "translate("+(w/2)+", " + (h - padding) + ")")
   .style("text-anchor","middle")
   .style("font-size","22px")
-  .style("text-decoration","underline")
+  .style("font-weight","bolder")
   .text(titles.x)
 
   
