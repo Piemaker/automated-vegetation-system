@@ -28,7 +28,7 @@
   padding: 0.325rem;
   text-align: center;
   width: 100%;
-  height: 3rem;
+  height: 2.5rem;
   border-radius: 0.25rem;
 }
 .blue-button{
@@ -53,8 +53,8 @@ label .fas:hover{
      
 
 }
-.radio-button input[type="radio"]:checked+label {
-  color: red;
+ .radio-button:checked+label {
+  color: #08b340;
 }
 
 .disable-select {

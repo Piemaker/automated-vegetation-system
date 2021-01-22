@@ -14,19 +14,22 @@ const checkCheckedRadio = ()=>{
   var radioButtonsArray = [...htmlCollection]
   var checkedRadio = radioButtonsArray.filter(radio => radio.checked)
   console.log("Checked radio button is :",checkedRadio[0].value)
-  return checkedRadio[0].value
+  return checkedRadio[0]
 }
+
+
 //assign data of graph based on radio check
 const assingGraphData = (dataSet)=>{
  const checkedRadio =  checkCheckedRadio()
- if(checkedRadio == "Temperature"){
+ const checkedRadioValue = checkedRadio.value;
+ if(checkedRadioValue == "Temperature"){
    return graph(dataSet,TemperatureThreshold,TemperatureTitles)
  }
-  else if(checkedRadio == "PH"){
+  else if(checkedRadioValue == "PH"){
    return graph(dataSet,PHThreshold,PHTitles)
     
   }
-  else if (checkedRadio == "ElectricConductivity"){
+  else if (checkedRadioValue == "ElectricConductivity"){
    return graph(dataSet,ElectricThreshold,ElectricTitles)
     
   }
@@ -41,22 +44,23 @@ const getDates = ()=>{
 }
 //construct payload based on user choices
 const constructPayload = (event)=>{
-  var data = null;
-  var dateObj = getDates();
+  let data = null;
+  let dateObj = getDates();
+  let checkedRadioValue = checkCheckedRadio().value;
    if(event.target.id == "previous-button"){
   //construct body of post
-   data = {action : "previous" ,modelName: checkCheckedRadio() ,minDate : dateObj.firstRectDate, maxDate : dateObj.lastRectDate}
+   data = {action : "previous" ,modelName: checkedRadioValue ,minDate : dateObj.firstRectDate, maxDate : dateObj.lastRectDate}
  }
   else if(event.target.id == "next-button"){
-   data = {action : "next" , modelName: checkCheckedRadio()  ,minDate : dateObj.firstRectDate, maxDate : dateObj.lastRectDate}
+   data = {action : "next" , modelName: checkedRadioValue  ,minDate : dateObj.firstRectDate, maxDate : dateObj.lastRectDate}
     
   }
   else if(event.target.id == "last-button"){
-   data = {action : "last" , modelName: checkCheckedRadio()  ,minDate : dateObj.firstRectDate, maxDate : dateObj.lastRectDate}
+   data = {action : "last" , modelName: checkedRadioValue  ,minDate : dateObj.firstRectDate, maxDate : dateObj.lastRectDate}
     
   }
   else if (event.target.id == "first-button"){
-   data = {action : "first" , modelName: checkCheckedRadio()  ,minDate : dateObj.firstRectDate, maxDate : dateObj.lastRectDate}
+   data = {action : "first" , modelName: checkedRadioValue  ,minDate : dateObj.firstRectDate, maxDate : dateObj.lastRectDate}
     
   }
   console.log(data)
@@ -66,10 +70,11 @@ const constructPayload = (event)=>{
 
 
 //event handler for radio button
-const handleChange = ()=>{
+const handleChange = (event)=>{
   let data = null;
+  let checkedRadioValue = checkCheckedRadio().value;
   //construct payload
-  data = {action : "radio" , modelName: checkCheckedRadio()  ,minDate : "", maxDate : ""}
+  data = {action : "radio" , modelName: checkedRadioValue  ,minDate : "", maxDate : ""}
   
   //create request
 fetch('https://automated-vegetation-system.piemaker1.repl.co/api/exportData/', {
