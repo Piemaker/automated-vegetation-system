@@ -3,13 +3,14 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>CodePen - Bar Graph</title>
+	<title>Stats Page</title>
 	<link rel="stylesheet" href="./navigation.css">
 	<link rel="stylesheet" href="./statistics.css">
 
 
 	<!--  font awesome !-->
-<script src="https://kit.fontawesome.com/a87a7d7cfe.js" crossorigin="anonymous"></script>
+	<script src="https://kit.fontawesome.com/a87a7d7cfe.js" crossorigin="anonymous">
+	</script>
 
 
 
@@ -20,16 +21,18 @@
   <script defer src="/home/runner/automated-vegetation-system/node_modules/js/all.js"></script> -->
 	<!-- <script src="https://kit.fontawesome.com/a87a7d7cfe.js" crossorigin="anonymous"></script> -->
 </head>
+
 <body>
-<!DOCTYPE html>
-<html id="html" lang="en">
-<body>
+	<!DOCTYPE html>
+	<html id="html" lang="en">
+
+	<body>
 
 
 
 		<div id="modal">
-    <div id="modal-content">
-      <span id="close">&times</span>
+			<div id="modal-content">
+				<span id="close">&times</span>
       <a class="link bottom-border" href="/"><i class="fas fa-home"></i>Home</a>
       <a class="link bottom-border" href="/statistics"><i class="fas fa-signal"></i>
         Statistics</a>
@@ -51,26 +54,31 @@
      <!--Statistics page part -->
 
   <div id='main' class="center">
-    <form id="form">
-      <div class="row-div">
+    <form id="form " class = "form">
+      <div class="row-div margin-top">
         <div class="column-div">
           <label for="start-value" class ="label">Start Value</label>
-          <input id="start-value" class="input-field" name="start-value" value='' type="number"></input>
+          <input id="start-value" class="input-field" name="start-value" value=-Number.MAX_VALUE type="number"></input>
           <label for="from" class ="label">From</label>
-          <input id="from" name="from" class="input-field" value='' type="date"></input>
+          <input id="from" name="from" class="input-field" value=new Date(-8640000000000000) type="date"></input>
         </div>
-        <div class="column-div margin-bottom">
+        <div class="column-div ">
           <label for="end-value" class ="label">End Value</label>
-          <input id="end-value" name="end-value" class="input-field" value='' type="number"></input>
+          <input id="end-value" name="end-value" class="input-field" value=Number.MAX_VALUE type="number"></input>
           <label for="to" class ="label">To</label>
-          <input id="to" name="to" class="input-field" value='' type="date"></input>
+          <input id="to" name="to" class="input-field" value=new Date(8640000000000000) type="date"></input>
         </div>
       </div>
-
+      <div class = "row-div">
+      <div class = "column-div margin-bottom">
+          <label for="limit-field" class ="label">Points/Graph</label>
+      <input id = "limit-field" type ="number" class = "input-field" value = 100></input>
+      </div>
+      </div>
       <input id="reset-button" class="pill-button red-button margin-bottom" type="reset"></input>
-      <input id="submit-button" class="pill-button blue-button" type="submit"></input>
+      <input id="submit-button" class="pill-button blue-button margin-bottom" type="submit"></input>
 
-    </form>
+    </form >
 
     <div id="svg" class="svg-container"></div>
 

@@ -16,7 +16,7 @@ body {
   top: 0%;
   left: 0%;
   width: 100%;
-  max-height: 10vh;
+  max-height: auto;
   background: rgb(95, 95, 95);
   display: flex;
   justify-content: space-around;
