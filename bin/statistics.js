@@ -71,10 +71,13 @@ const constructPayload = (event) => {
 
 //event handler for radio button
 const handleChange = (event) => {
+  pageNu = 0;
   let data = null;
   let checkedRadioValue = checkCheckedRadio().value;
+  let formData = getFormData();
   //construct payload
-  data = { action: "radio", modelName: checkedRadioValue, minDate: "", maxDate: "" }
+
+   data = Object.assign({},formData,{modelName:checkedRadioValue},{pageNu:pageNu})
 
   //create request
   fetch('https://automated-vegetation-system.piemaker1.repl.co/api/exportData/', {
