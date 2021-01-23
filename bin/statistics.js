@@ -5,6 +5,10 @@ const PHThreshold = { min: 6, max: 8 }
 const PHTitles = { x: "Date", y: "PH Level" }
 const ElectricThreshold = { min: 10, max: 30 }
 const ElectricTitles = { x: "Date", y: "Electric Conductivity mV" }
+
+//page number
+let pageNu  = 0;
+
 //check which graph radio is checked
 const checkCheckedRadio = () => {
   const radioDiv = document.getElementById('radio-div')
@@ -45,15 +49,16 @@ const getDates = () => {
 //construct payload based on user choices
 const constructPayload = (event) => {
   let data = null;
-  let dateObj = getDates();
   let checkedRadioValue = checkCheckedRadio().value;
+  let formData = getFormData();
   if (event.target.id == "previous-button") {
+    pageNu += 1;
     //construct body of post
-    data = { action: "previous", modelName: checkedRadioValue, minDate: dateObj.firstRectDate, maxDate: dateObj.lastRectDate }
+    data = Object.assign({},formData,{modelName:checkedRadioValue},{pageNu:pageNu})
   }
   else if (event.target.id == "next-button") {
-    data = { action: "next", modelName: checkedRadioValue, minDate: dateObj.firstRectDate, maxDate: dateObj.lastRectDate }
-
+    pageNu -= 1;
+    data = Object.assign({},formData,{modelName:checkedRadioValue},{pageNu:pageNu})
   }
   else if (event.target.id == "last-button") {
     data = { action: "last", modelName: checkedRadioValue, minDate: dateObj.firstRectDate, maxDate: dateObj.lastRectDate }
@@ -66,6 +71,16 @@ const constructPayload = (event) => {
   console.log(data)
   return data;
 
+}
+
+//check if this is the first page and hide the next button
+const checkIfFirstPage = ()=>{
+  if(pageNu == 0){
+nextButton.setAttribute("style", "visibility: hidden")
+      firstButton.setAttribute("style", "visibility: hidden")
+  }
+  nextButton.setAttribute("style", "visibility: visible")
+      firstButton.setAttribute("style", "visibility: visible")
 }
 
 
@@ -98,9 +113,7 @@ const handleChange = (event) => {
       const dataSet = data.map(x => { return { value: x.value, date: new Date(Date.parse(x.date)) } })
       //unhide any buttons from page buttons
       unhideButtons()
-      //hide the next buttons
-      nextButton.setAttribute("style", "visibility: hidden")
-      firstButton.setAttribute("style", "visibility: hidden")
+      checkIfFirstPage()
       //redraw graph
       assignGraphData(dataSet)
 
@@ -138,6 +151,8 @@ const handlePageButton = (event) => {
       if (data.length != 0) {
         //unhide all buttons
         unhideButtons()
+        //check if first page
+        checkIfFirstPage()
         d3.select("#svg-graph").remove()
         const dataSet = data.map(x => { return { value: x.value, date: new Date(Date.parse(x.date)) } })
 
@@ -148,7 +163,9 @@ const handlePageButton = (event) => {
       }
       else {
         //hide specified buttons if data has reached the end
-        hideButtons(event)
+        //subtract 1 to pageNu because no page was found
+        pageNu -= 1;
+        hideButtons(event);
       }
 
     })
@@ -177,10 +194,6 @@ const electricRadio = document.getElementById("electric-radio");
 temperatureRadio.addEventListener('change', handleChange);
 phRadio.addEventListener('change', handleChange);
 electricRadio.addEventListener('change', handleChange);
-
-//the latest data is available by default so hide next and first buttons
-nextButton.setAttribute("style", "visibility: hidden")
-firstButton.setAttribute("style", "visibility: hidden")
 
 const unhideButtons = () => {
   const previousButton = document.getElementById("previous-button");
@@ -405,10 +418,10 @@ req.onload = function() {
   console.table(dataSet);
   assignGraphData(dataSet)
 }
-
+checkIfFirstPage();
 
 //todo
-let pageNu  = 0;
+
 const getFormData = ()=>{
 const form = new FormData(document.getElementById('form'))
 const  minValue = form.get('minValue');
@@ -452,8 +465,7 @@ const handleSubmit = (event)=>{
       //unhide any buttons from page buttons
       unhideButtons()
       //hide the next buttons
-      nextButton.setAttribute("style", "visibility: hidden")
-      firstButton.setAttribute("style", "visibility: hidden")
+     checkIfFirstPage()
       //redraw graph
       assignGraphData(dataSet)
 
