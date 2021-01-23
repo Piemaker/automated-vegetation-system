@@ -54,29 +54,29 @@
      <!--Statistics page part -->
 
   <div id='main' class="center">
-    <form id="form " class = "form">
+    <form id="form" class = "form">
       <div class="row-div margin-top">
         <div class="column-div">
           <label for="start-value" class ="label">Start Value</label>
-          <input id="start-value" class="input-field" name="start-value" value=-Number.MAX_VALUE type="number"></input>
+          <input id="start-value" class="input-field" name="start-value" value= -1000 type="number"></input>
           <label for="from" class ="label">From</label>
-          <input id="from" name="from" class="input-field" value=new Date(-8640000000000000) type="date"></input>
+          <input id="from" name="from" class="input-field" value= "1970-01-10" type="date"></input>
         </div>
         <div class="column-div ">
           <label for="end-value" class ="label">End Value</label>
-          <input id="end-value" name="end-value" class="input-field" value=Number.MAX_VALUE type="number"></input>
+          <input id="end-value" name="end-value" class="input-field" value= 1000 type="number"></input>
           <label for="to" class ="label">To</label>
-          <input id="to" name="to" class="input-field" value=new Date(8640000000000000) type="date"></input>
+          <input id="to" name="to" class="input-field" value= "2222-01-01" type="date"></input>
         </div>
       </div>
       <div class = "row-div">
       <div class = "column-div margin-bottom">
           <label for="limit-field" class ="label">Points/Graph</label>
-      <input id = "limit-field" type ="number" class = "input-field" value = 100></input>
+      <input id = "limit-field" type ="number" class = "input-field" name = "limit" value = 100></input>
       </div>
       </div>
-      <input id="reset-button" class="pill-button red-button margin-bottom" type="reset"></input>
-      <input id="submit-button" class="pill-button blue-button margin-bottom" type="submit"></input>
+      <input id="reset-button" class="form-button red-button margin-bottom" type="reset"></input>
+      <input id="submit-button" class="form-button blue-button margin-bottom" type="submit"></input>
 
     </form >
 

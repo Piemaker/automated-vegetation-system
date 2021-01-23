@@ -4,7 +4,7 @@
   max-width: auto;
   max-height: auto;
   color: white;
-  border-radius: 0.25rem;
+  border-radius: 0.5rem;
   background: #0F2027;  /* fallback for old browsers */
   background: linear-gradient(to top, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
   background: linear-gradient(to top, rgba(44,83,100,0.5), rgba(32,58,67,0.5), rgba(15,32,39,0.5)
@@ -37,18 +37,20 @@ margin-top: 10px;
   height: 1.75rem;
   border-color: orange;
   text-align: center;
-  width: 90%;
+  width: 85%;
   background: #fefefe;
+  border-radius: 2rem;
+  border-width: 0.25rem;
 }
 .margin-bottom{
   margin-bottom: 10px;
 }
 
-.pill-button{
+.form-button{
   color: #FFFFFF;
   font-size: 1rem;
   text-align: center;
-  width: 80%;
+  width: 85%;
   height: 2.25rem;
   border-radius: 0.25rem;
 }
@@ -180,13 +182,13 @@ animation: fadeIn ease 0.5s;
   .svg-container{
     min-width: 96vw;
   }
-  .pill-button{
+  .form-button{
     height: 1.5rem
   }
   .input-field{
     height: 1rem;
   }
   .form{
-    max-width: 60%;
+    max-width: 66%;
   }
 }
