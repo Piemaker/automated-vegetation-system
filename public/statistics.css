@@ -130,14 +130,7 @@ margin: 20px;
 background: white;
 
 }
-.bar{
-fill: #cc420a;
-  
-}
-.bar:hover{
-  stroke: black;
- stroke-width: 1px;
-}
+
 .tooltip{
   opacity:0;
   padding: 5px;

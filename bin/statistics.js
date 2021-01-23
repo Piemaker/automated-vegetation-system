@@ -311,6 +311,7 @@ Value: ${d3.select(event.target).attr("data-value")} `)
     .attr("y", d => yScale(d.value))
     .attr("class", "bar")
     .style("fill", d => fillColor(d.value))
+    .style("stroke", "black")
     .attr("data-date", d => d.date)
     .attr("data-value", d => d.value)
     .on("mouseover", mouseover)
@@ -404,15 +405,60 @@ req.onload = function() {
 
 
 //todo
+let pageNu  = 0;
 const getFormData = ()=>{
 const form = new FormData(document.getElementById('form'))
-const  startValue = form.get('start-value');
-const endValue = form.get('end-value');
-const from = form.get('from');
-const to = form.get('to');
+const  minValue = form.get('minValue');
+const maxValue = form.get('maxValue');
+const minDate = form.get('minDate');
+const maxDate = form.get('maxDate');
 const limit = form.get('limit')
-const formData = {startValue : startValue , endValue : endValue , from : from , to : to , limit : limit}
+const formData = {minValue : minValue , maxValue : maxValue , minDate : minDate , maxDate : maxDate , limit : limit}
 console.log(formData)
 return formData;
 }
 getFormData()
+
+const handleSubmit = (event)=>{
+  //clear pages
+  pageNu = 0;
+  //stop form from submitting
+    event.preventDefault();
+    const formData = getFormData();
+    const checkedRadioValue = checkCheckedRadio().value;
+    //construct payload
+    const data = Object.assign({},formData,{modelName:checkedRadioValue},{pageNu:pageNu})
+
+//create request
+  fetch('https://automated-vegetation-system.piemaker1.repl.co/api/exportData/', {
+    method: 'POST', // or 'PUT'
+    headers: {
+      'Content-Type': 'application/json',
+
+    },
+    mode: 'cors',
+
+    body: JSON.stringify(data),
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log('Success:', data);
+      //graph data 
+      d3.select("#svg-graph").remove()
+      const dataSet = data.map(x => { return { value: x.value, date: new Date(Date.parse(x.date)) } })
+      //unhide any buttons from page buttons
+      unhideButtons()
+      //hide the next buttons
+      nextButton.setAttribute("style", "visibility: hidden")
+      firstButton.setAttribute("style", "visibility: hidden")
+      //redraw graph
+      assignGraphData(dataSet)
+
+    })
+    .catch((error) => {
+      console.error('Error:', error);
+    });
+
+}
+const submitButton = document.getElementById('submit-button');
+submitButton.addEventListener('click',handleSubmit)

@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
 app.post('/', (req, res) => {
 
   //res.header("Access-Control-Allow-Origin:*")
-  const { action, modelName, minDate, maxDate } = req.body;
+  const { action, modelName, minDate, maxDate , pageNu ,limit , minValue , maxValue } = req.body;
   let model;
   console.log(req.body)
   if (modelName == "Temperature") {
@@ -45,6 +45,17 @@ app.post('/', (req, res) => {
   else if (modelName == "ElectricConductivity") {
     model = ElectricConductivity;
   }
+
+model.find({ value:{ $gte: parseInt(minValue) ,$lte: parseInt(maxValue) } , date: { $gte: new Date(minDate) ,$lte: new Date(maxDate) }})
+.select("-_id value date")
+.sort({"date":-1})
+.skip(pageNu* parseInt(limit))
+.limit(parseInt(limit))
+.then(data => {
+  res.json(data)
+})
+
+
   //check action type
   if (action == "previous") {
     model.find({ date: { $lt: new Date(minDate) } })
