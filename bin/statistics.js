@@ -77,12 +77,11 @@ const constructPayload = (event) => {
 const checkIfFirstPage = ()=>{
   if(pageNu == 0){
 nextButton.setAttribute("style", "visibility: hidden")
-      firstButton.setAttribute("style", "visibility: hidden")
   }
+  else{
   nextButton.setAttribute("style", "visibility: visible")
-      firstButton.setAttribute("style", "visibility: visible")
 }
-
+}
 
 //event handler for radio button
 const handleChange = (event) => {
@@ -111,9 +110,8 @@ const handleChange = (event) => {
       //graph data 
       d3.select("#svg-graph").remove()
       const dataSet = data.map(x => { return { value: x.value, date: new Date(Date.parse(x.date)) } })
-      //unhide any buttons from page buttons
-      unhideButtons()
       checkIfFirstPage()
+      unhidePreviousButton()
       //redraw graph
       assignGraphData(dataSet)
 
@@ -149,10 +147,9 @@ const handlePageButton = (event) => {
       console.log('Success:', data);
       //graph data if there still any
       if (data.length != 0) {
-        //unhide all buttons
-        unhideButtons()
-        //check if first page
-        checkIfFirstPage()
+        //check if first page and hide previous button accordingly
+        checkIfFirstPage();
+        unhidePreviousButton();
         d3.select("#svg-graph").remove()
         const dataSet = data.map(x => { return { value: x.value, date: new Date(Date.parse(x.date)) } })
 
@@ -162,10 +159,10 @@ const handlePageButton = (event) => {
 
       }
       else {
-        //hide specified buttons if data has reached the end
+        //hide next button
         //subtract 1 to pageNu because no page was found
         pageNu -= 1;
-        hideButtons(event);
+        hidePreviousButton();
       }
 
     })
@@ -180,12 +177,8 @@ const handlePageButton = (event) => {
 //create event handler for page buttons
 const previousButton = document.getElementById("previous-button");
 const nextButton = document.getElementById("next-button");
-const lastButton = document.getElementById("last-button");
-const firstButton = document.getElementById("first-button");
 previousButton.addEventListener('click', handlePageButton);
 nextButton.addEventListener('click', handlePageButton);
-lastButton.addEventListener('click', handlePageButton);
-firstButton.addEventListener('click', handlePageButton);
 
 //create event handler for radio buttons
 const temperatureRadio = document.getElementById("temperature-radio");
@@ -195,38 +188,7 @@ temperatureRadio.addEventListener('change', handleChange);
 phRadio.addEventListener('change', handleChange);
 electricRadio.addEventListener('change', handleChange);
 
-const unhideButtons = () => {
-  const previousButton = document.getElementById("previous-button");
-  const nextButton = document.getElementById("next-button");
-  const lastButton = document.getElementById("last-button");
-  const firstButton = document.getElementById("first-button");
-  nextButton.setAttribute("style", "visibility: visible")
-  firstButton.setAttribute("style", "visibility: visible")
-  lastButton.setAttribute("style", "visibility: visible")
-  previousButton.setAttribute("style", "visibility: visible")
-}
-//hide/unhide buttons when response is []
-const hideButtons = (event) => {
-  const previousButton = document.getElementById("previous-button");
-  const nextButton = document.getElementById("next-button");
-  const lastButton = document.getElementById("last-button");
-  const firstButton = document.getElementById("first-button");
-  if (event.target.id == "previous-button" || event.target.id == "last-button") {
-    previousButton.setAttribute("style", "visibility: hidden")
-    lastButton.setAttribute("style", "visibility: hidden")
-  }
-  else if (event.target.id == "next-button" || event.target.id == "first-button") {
-
-    nextButton.setAttribute("style", "visibility: hidden")
-    firstButton.setAttribute("style", "visibility: hidden")
-  }
-}
-
-
-
-
-
-
+//main function of graphing
 const graph = (dataSet, threshold, titles) => {
 
 
@@ -462,10 +424,9 @@ const handleSubmit = (event)=>{
       //graph data 
       d3.select("#svg-graph").remove()
       const dataSet = data.map(x => { return { value: x.value, date: new Date(Date.parse(x.date)) } })
-      //unhide any buttons from page buttons
-      unhideButtons()
       //hide the next buttons
      checkIfFirstPage()
+     unhidePreviousButton()
       //redraw graph
       assignGraphData(dataSet)
 
@@ -477,3 +438,10 @@ const handleSubmit = (event)=>{
 }
 const submitButton = document.getElementById('submit-button');
 submitButton.addEventListener('click',handleSubmit)
+
+const hidePreviousButton = ()=>{
+ previousButton.setAttribute("style", "visibility: hidden")
+}
+const unhidePreviousButton = ()=>{
+previousButton.setAttribute("style", "visibility: visible")
+}
