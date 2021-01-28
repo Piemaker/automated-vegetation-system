@@ -22,12 +22,4 @@ const {ElectricConductivity} = require(('../models/Base'))
 
 
 
-
-
-
-
-
-
-
-
 module.exports = app

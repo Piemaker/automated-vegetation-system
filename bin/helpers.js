@@ -45,14 +45,38 @@ modelName.deleteMany({}, function(err) {
             if (err) {
                 console.err(err)
             } else {
-                console.log('success');
+                console.log('data deleted successfuly from '+ modelName);
             }
         }
     )}
 
+//create function to insert data in model
+const insertOne = (modelName , dataObject)=>{
+  modelName.create(dataObject, function(err){
+    if (err) {
+                console.err(err)
+            } else {
+                console.log('data inserted successfuly in '+ modelName);
+            }
+  })
+}
+//function to create notificaiton object based on thresholds
+const constructNotificaitonObject = (value, thresholdObj, modelName , date)=>{
+  let dataObj = null;
+  if (value < thresholdObj.min){
+       dataObj = {model : modelName , value: value , date: new Date(date), condition: "below average", deviation: Math.abs(value - thresholdObj.min) , read: false }
+   
+  }
+  else if (value > thresholdObj.max){
+       dataObj = {model : modelName , value: value , date: new Date(date), condition: "above average", deviation: Math.abs(value - thresholdObj.max) , read: false }
+  }
+  return dataObj;
+}
 
     //export function to be available to entire project
     exports.generateDummyData = generateDummyData;
     exports.dummyDateAndValue = dummyDateAndValue;
     exports.insertDummy = insertDummy;
     exports.purgeModel = purgeModel;
+    exports.insertOne = insertOne;
+    exports.constructNotificaitonObject = constructNotificaitonObject;

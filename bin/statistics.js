@@ -6,6 +6,7 @@ const PHTitles = { x: "Date", y: "PH Level" }
 const ElectricThreshold = { min: 10, max: 30 }
 const ElectricTitles = { x: "Date", y: "Electric Conductivity mV" }
 
+
 //page number
 let pageNu  = 0;
 

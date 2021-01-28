@@ -42,12 +42,16 @@ const index = require('./routes/index')
 const api = require('./routes/api')
 const exportData = require('./routes/exportData')
 const statistics = require('./routes/statistics')
+const notification = require('./routes/notification')
+const importData = require('./routes/importData')
+
 //set routes
 app.use('/',index)
 app.use('/statistics',statistics)
 app.use('/api',api)
 app.use('/api/exportData',exportData)
-
+app.use('/notification',notification)
+app.use('/api/importData',importData)
 // // Add headers
 // app.use(function (req, res, next) {
 
