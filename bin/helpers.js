@@ -51,8 +51,8 @@ modelName.deleteMany({}, function(err) {
     )}
 
 //create function to insert data in model
-const insertOne = (modelName , dataObject)=>{
-  modelName.create(dataObject, function(err){
+const  insertOne = async (modelName , dataObject)=>{
+  await modelName.create(dataObject, function(err){
     if (err) {
                 console.err(err)
             } else {

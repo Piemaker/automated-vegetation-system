@@ -44,6 +44,8 @@ const exportData = require('./routes/exportData')
 const statistics = require('./routes/statistics')
 const notification = require('./routes/notification')
 const importData = require('./routes/importData')
+const exportNotification = require('./routes/exportNotification')
+
 
 //set routes
 app.use('/',index)
@@ -52,6 +54,8 @@ app.use('/api',api)
 app.use('/api/exportData',exportData)
 app.use('/notification',notification)
 app.use('/api/importData',importData)
+app.use('/api/exportNotification',exportNotification)
+
 // // Add headers
 // app.use(function (req, res, next) {
 

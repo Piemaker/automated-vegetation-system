@@ -15,7 +15,4 @@ var NotificationSchema = new Schema({
 })
   
  
-module.exports = {
-  Notification: mongoose.model('Notification',NotificationSchema),
-  
-}
+  module.exports = mongoose.model('Notification', NotificationSchema);

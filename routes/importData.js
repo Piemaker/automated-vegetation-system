@@ -39,12 +39,13 @@ app.post('/',(req,res)=>{
     model = ElectricConductivity;
     let notificaitonObj = helpers.constructNotificaitonObject(value, ElectricThreshold, modelName, date)
     if(notificaitonObj != null){
-    helpers.insertOne(Notification, notificaitonObj)}
+     helpers.insertOne(Notification, notificaitonObj)}
    
   }
   //insert imported data from MC in to corresponding model
+  console.log("model value is : ",model)
   let dataObj = {value : value , date : new Date (date)}
-  helpers.insertOne(modelName,dataObj)
+  helpers.insertOne(model,dataObj)
 
 })
 

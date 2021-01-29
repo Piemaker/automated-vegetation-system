@@ -1,0 +1,16 @@
+const express = require('express')
+const app = express()
+
+const Notification = require('../models/Notification')
+
+app.get('/', (req, res) => {
+  Notification.find({})
+    .sort({ "date": -1 })
+    .select("-__v")
+    .then(data => {
+      res.json(data)
+    })
+    .catch(err => res.send(err.message))
+});
+
+module.exports = app
