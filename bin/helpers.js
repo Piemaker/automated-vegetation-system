@@ -56,7 +56,7 @@ const  insertOne = async (modelName , dataObject)=>{
     if (err) {
                 console.err(err)
             } else {
-                console.log('data inserted successfuly in '+ modelName);
+                console.log('data inserted successfuly in model ');
             }
   })
 }

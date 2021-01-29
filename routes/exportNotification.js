@@ -4,7 +4,7 @@ const app = express()
 const Notification = require('../models/Notification')
 
 app.get('/', (req, res) => {
-  Notification.find({})
+  Notification.find({read: false})
     .sort({ "date": -1 })
     .select("-__v")
     .then(data => {
