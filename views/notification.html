@@ -2,22 +2,25 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>Automated Vegetation System Notificaiton Page</title>
+  <title>Notification Page</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.3.0/font-awesome-animation.min.css'><link rel="stylesheet" href="./notificaiton.css">
   <link rel="stylesheet" href="navigation.css">
-<!--  font awesome !-->
-<script src="https://kit.fontawesome.com/a87a7d7cfe.js" crossorigin="anonymous"></script>
-
-
-
 </head>
 <body>
 <!-- partial:index.partial.html -->
 <!DOCTYPE html>
-<html id="html" lang="en">
+<html lang="en">
 
-<body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A Great Demo on CodePen</title>
+  <!--  font awesome !-->
+  <script src="https://kit.fontawesome.com/a87a7d7cfe.js" crossorigin="anonymous"></script>
 
-  <div id="modal">
+</head>
+
+<div id="modal">
     <div id="modal-content">
       <span id="close">&times</span>
       <a class="link bottom-border" href="/"><i class="fas fa-home"></i>Home</a>
@@ -36,18 +39,16 @@
   </div>
 <div id="scroll-up-button" class="scroll-up-button"><i class="fas fa-chevron-circle-up fa-3x"></i> </div>
 
-  <div class="content">
-    <h1>Notification Page</h1>
-    <div id = "notification-area" class = "notification-container"></div>
-  </div>
- 
-  
 
+<body>
+  <h3 class="header">Click on the edge to read and X to dismiss</h3>
+  <div id="notification-container" class="notificaiton-container">
+  </div>
 </body>
 
 </html>
 <!-- partial -->
+  <script  src="./notification.js"></script>
   <script  src="navigation.js"></script>
-
 </body>
 </html>

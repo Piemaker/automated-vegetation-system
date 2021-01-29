@@ -1,14 +1,12 @@
 /*@import url('../node_modules/font-awesome/css/font-awesome.min.css');*/
 
 .form{
+  margin-top: 2rem;
   max-width: auto;
   max-height: auto;
   color: white;
   border-radius: 0.5rem;
-  background: #0F2027;  /* fallback for old browsers */
-  background: linear-gradient(to top, #2C5364, #203A43, #0F2027); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-  background: linear-gradient(to top, rgba(44,83,100,0.5), rgba(32,58,67,0.5), rgba(15,32,39,0.5)
-);  /* Chrome 10-25, Safari 5.1-6 */
+  background: rgb(243,213,239,0.15);
 
 }
 .margin-top{
@@ -35,7 +33,7 @@ margin-top: 10px;
 .input-field{
   margin: 5px;
   height: 1.75rem;
-  border-color: orange;
+  border-color: #590c51;
   text-align: center;
   width: 85%;
   background: #fefefe;
@@ -55,12 +53,12 @@ margin-top: 10px;
   border-radius: 0.25rem;
 }
 .blue-button{
-  background: #007BFF;
+  background: rgb(23,168,40,00.65);
 }
 .red-button{
-  background: #DC3545;
+  background: rgb(239,119,16,0.65);
 }
-.pill-button:hover{
+.form-button:hover{
   filter: saturate(1.5);
 }
 

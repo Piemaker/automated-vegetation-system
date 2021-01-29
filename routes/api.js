@@ -8,9 +8,17 @@ const Notification = require(('../models/Notification'))
 
 //const dummyData = helpers.generateDummyData(0,100)
 //console.table(dummyData)
-//helpers.purgeModel(Notification)
-//const dummyData = helpers.dummyDateAndValue(new Date(2020,1,15),30,1,14,250)
-//helpers.insertDummy(dummyData,PH)
+//helpers.purgeModel(ElectricConductivity)
+
+
+// const dummyData1 = helpers.dummyDateAndValue(new Date(2020,1,15),30,1,14,250)
+// const dummyData2 = helpers.dummyDateAndValue(new Date(2020,1,15),30,0,100,250)
+//const dummyData3 = helpers.dummyDateAndValue(new Date(2020,1,15),30,1,80,250)
+
+// helpers.insertDummy(dummyData1,PH)
+// helpers.insertDummy(dummyData2,Temperature)
+//helpers.insertDummy(dummyData3,ElectricConductivity)
+
 
 
 

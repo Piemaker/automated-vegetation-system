@@ -1,13 +1,9 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #4158d0;
-  background-image: linear-gradient(
-    43deg,
-    #4158d0 0%,
-    #c850c0 46%,
-    #ffcc70 100%
-  );
+ background: rgb(159,164,167);
+background: linear-gradient(315deg, rgba(159,164,167,1) 11%, rgba(99,100,101,1) 28%, rgba(44,62,80,1) 88%);
+
 }
 .navbar {
   visibility: visible;
@@ -17,7 +13,7 @@ body {
   left: 0%;
   width: 100%;
   max-height: auto;
-  background: rgb(95, 95, 95);
+  background:#717d87;
   display: flex;
   justify-content: space-around;
   transition: 0.5s ease;
