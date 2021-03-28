@@ -1,6 +1,6 @@
 //model to store the values that aren't within acceptable range to be fetched as a notifications for the user
 //condition feild will contain a string either "below average/above average"
-//read will be the status of the notfiicaiton the default being unread by the useeere 
+//read will be the status of the notfiicaiton the default being unread by the user 
 const mongoose = require("mongoose")
 const Schema = mongoose.Schema;
 
