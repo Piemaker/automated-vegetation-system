@@ -1,4 +1,4 @@
-//This route is for importing data from the MC and saving it in its corresponding model as well as checking if the imported values are in acceptable range, otherwise, that value will be saved in the notificaiton model aswell to be displayed for the user
+//This route is for importing data from the MC and saving it in its corresponding model as well as checking if the imported values are in acceptable range, otherwise, that value will be saved in the notificaiton model as well as to be displayed for the user
 const express = require('express')
 const app = express()
 //import models 

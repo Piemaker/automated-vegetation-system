@@ -1,5 +1,7 @@
 /*@import url('../node_modules/font-awesome/css/font-awesome.min.css');*/
-
+body{
+  min-height: 100vh;
+}
 .form{
   margin-top: 2rem;
   max-width: auto;
@@ -87,11 +89,7 @@ label .fas:hover{
 }
 
   
-body{
- 
 
-
-}
 .center{
    display: flex;
   flex-direction: column;

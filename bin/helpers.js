@@ -43,7 +43,7 @@ modelName.insertMany(dummyData, function (err, res) {
 const purgeModel = (modelName)=>{
 modelName.deleteMany({}, function(err) {
             if (err) {
-                console.err(err)
+                console.error(err)
             } else {
                 console.log('data deleted successfuly from '+ modelName);
             }
@@ -54,7 +54,7 @@ modelName.deleteMany({}, function(err) {
 const  insertOne = async (modelName , dataObject)=>{
   await modelName.create(dataObject, function(err){
     if (err) {
-                console.err(err)
+                console.error(err)
             } else {
                 console.log('data inserted successfuly in model ');
             }

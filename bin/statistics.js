@@ -47,7 +47,7 @@ const getDates = () => {
   console.log("first rect value", firstRectDate, "last rect  value", lastRectDate)
   return { lastRectDate: lastRectDate, firstRectDate: firstRectDate }
 }
-//construct payload based on user choices
+//construct payload based on user choices, last and first buttons have been removed in this itteration
 const constructPayload = (event) => {
   let data = null;
   let checkedRadioValue = checkCheckedRadio().value;
@@ -212,10 +212,10 @@ const graph = (dataSet, threshold, titles) => {
   console.log("Maximum x value " + maxX);
   console.log("Minimum x value " + minX);
   console.log("Maximum y value " + maxY);
-  console.log("Minimum t value " + minY);
+  console.log("Minimum y value " + minY);
 
 
-  //x & y scales
+  //x & y scales (scales are used to define each point location on the svg element by setting the domain of the points and mapping them to the range/length of the svg)
   const xScale = d3.scaleTime()
     .domain([minX, maxX])
     .range([2 * padding, w - 2 * padding])
@@ -224,7 +224,7 @@ const graph = (dataSet, threshold, titles) => {
     .domain([minY, maxY])
     .range([h - 2 * padding, 2 * padding])
 
-
+//svg element holds the graph
   const svg = d3.select("#svg")
     .append("svg")
     .attr("id", "svgElement")
@@ -234,6 +234,7 @@ const graph = (dataSet, threshold, titles) => {
     // .attr("width",w)
     // .attr("height",h)
     .attr("class", "svg")
+    //two commands responsible of keeping the aspect ratio of the graph (for mobile users especially or the graph will be scrolled otherwise)
     .attr("preserveAspectRatio", "xMinYMin meet")
     .attr("viewBox", `0 0 ${w} ${h}`)
 
@@ -243,14 +244,16 @@ const graph = (dataSet, threshold, titles) => {
     .attr("id", "tooltip")
     .attr("class", "tooltip")
 
-
+//event for displaying the tooltip
   const mouseover = () => {
     tooltip.style("opacity", 1)
     d3.select(event.target).style("fill", "#46413F");
   }
+  //event for displaying the data, and position the tooltip
   const mousemove = () => {
 
     var date = new Date(d3.select(event.target).attr('data-date'))
+    //structure and position of the tooltip
     tooltip
       .style("top", (event.pageY - 10) + "px")
       .style("left", (event.pageX + 10) + "px")
@@ -260,6 +263,13 @@ Value: ${d3.select(event.target).attr("data-value")} `)
 
   }
 
+  //event to hide the tooltip
+  const mouseleave = () => {
+    tooltip.style("opacity", 0)
+    d3.select(event.target).style("fill", fillColor(d3.select(event.target).attr("data-value")));
+
+  }
+//color of each rect element based on its value and its corresponding threshold
   const fillColor = (d) => {
     if (d < threshold.min) {
       return colorArr[0]
@@ -272,14 +282,9 @@ Value: ${d3.select(event.target).attr("data-value")} `)
     }
   }
 
-  const mouseleave = () => {
-    tooltip.style("opacity", 0)
-    d3.select(event.target).style("fill", fillColor(d3.select(event.target).attr("data-value")));
-
-  }
 
 
-
+//append the rects to the svg with their data and bind the tooltip's event to them
   svg.selectAll("rect.bar")
     .data(dataSet)
     .enter()
@@ -301,16 +306,15 @@ Value: ${d3.select(event.target).attr("data-value")} `)
 
 
 
-
+//call xaxis and append it at the bottom of the svg
   const xAxis = d3.axisBottom(xScale)
-
-
   svg.append("g")
     .attr("id", "x-axis")
     .attr("transform", "translate(0, " + (h - 2 * padding) + ")")
     .call(xAxis)
     .style("font-size", "16px")
 
+//call yaxis and apped it at the left of the svg
   const yAxis = d3.axisLeft(yScale);
   svg.append("g")
     .attr("id", "y-axis")
@@ -338,16 +342,17 @@ Value: ${d3.select(event.target).attr("data-value")} `)
 
 
   //legend part
+  //color scale  will map each color its position
   const colorScale = d3.scaleLinear()
     .domain([threshold.min, threshold.max])
     .range([2 * padding, 4 * padding])
 
-
+//legend scale will map each threshold to its position
   const legendScale = d3.scaleOrdinal()
     .domain([0, threshold.min, threshold.max])
     .range([2 * padding, 3 * padding, 4 * padding])
 
-  //legend axis
+  //legend axis will append the colors and its threshold using the scales
   const legendAxis = d3.axisBottom(legendScale)
 
   svg.append("g")

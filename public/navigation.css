@@ -1,9 +1,9 @@
 body {
+    min-height: 100vh;
   margin: 0;
   padding: 0;
  background: rgb(159,164,167);
 background: linear-gradient(315deg, rgba(159,164,167,1) 11%, rgba(99,100,101,1) 28%, rgba(44,62,80,1) 88%);
-
 }
 .navbar {
   visibility: visible;
