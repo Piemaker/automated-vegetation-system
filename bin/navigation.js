@@ -58,3 +58,42 @@ modal.addEventListener("click", (event) => {
 });
 closeButton.addEventListener("click", handleClick);
 menu.addEventListener("click", handleClick);
+
+//part for updating notification counter
+window.addEventListener("load",()=>{
+
+  //create request to notificaiton model
+fetch(
+  "https://automated-vegetation-system.piemaker1.repl.co/api/exportNotification/",
+  {
+    method: "GET", // or 'PUT'
+    headers: {
+      "Content-Type": "application/json"
+    },
+    mode: "cors"
+  }
+)
+  .then((response) => response.json())
+  .then((data) => {
+  let countArr = document.getElementsByClassName("notification-count")
+
+   
+    if(data.length > 0){
+   let countArr = document.getElementsByClassName("notification-count")
+
+   
+   for(let i = 0; i < countArr.length; i++){
+     countArr[i].innerHTML = data.length;
+     countArr[i].style.setProperty("visibility","visible");
+   }
+    }
+    else{
+
+   for(let i = 0; i < countArr.length; i++){
+    countArr[i].style.setProperty("visibility","hidden");
+   }
+    
+    }
+  
+  })
+})

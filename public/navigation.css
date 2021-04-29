@@ -19,6 +19,7 @@ background: linear-gradient(315deg, rgba(159,164,167,1) 11%, rgba(99,100,101,1) 
   transition: 0.5s ease;
 }
 .link {
+  position: relative; 
   width: 1fr;
   height: 1fr;
   cursor: pointer;
@@ -26,6 +27,9 @@ background: linear-gradient(315deg, rgba(159,164,167,1) 11%, rgba(99,100,101,1) 
   color: white;
   font-weight: bold;
   text-decoration : none;
+}
+.link i{
+  position: relative;
 }
 .link:hover{
  color: black;
@@ -92,6 +96,16 @@ text-decoration : none;
   padding-left: 5%;
   font-size: 1.5em;
   transition: 0.5s ease;
+}
+.notification-count {
+  position: absolute;
+  top: -12px;
+  right: -12.5px;
+  padding: 3.5px 8px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+  font-size : 0.75rem;
 }
 #close {
   text-align: center;
