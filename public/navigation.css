@@ -136,6 +136,43 @@ text-decoration : none;
   color: red;
 }
 
+
+.flex-container {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-around;
+  height: auto;
+  width: 100vw;
+}
+.status-box {
+  border: solid;
+  border-radius: 0.5rem;
+  font-size: 1.5rem;
+  min-height: 5rem;
+  width: 15rem;
+  padding: 0.25rem;
+ 
+}
+.status-box ul {
+  list-style: none;
+  padding-left: 0;
+}
+.status-box:hover {
+  filter: saturate(200%);
+}
+
+.alert {
+  background: rgba(152, 100, 22, 0.5);
+  color: #ffbd43;
+}
+.clear {
+  background: rgba(6, 72, 26, 0.5);
+  border-color: green;
+  color: #57f185;
+}
+
+
 @media only screen and (max-width: 768px) {
   
 .element{
@@ -151,5 +188,15 @@ display: block;
     margin-left: 5%;
 margin-right: 10%;
    
+  }
+  .flex-container {
+    flex-direction: column;
+    height: 100vh;
+    width: 100vw;
+    align-items: center;
+  }
+  .status-box {
+    min-height: auto;
+    margin-bottom: 1rem;
   }
 }

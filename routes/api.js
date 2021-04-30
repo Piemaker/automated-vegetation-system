@@ -6,6 +6,11 @@ const {PH} = require('../models/Base')
 const {ElectricConductivity} = require(('../models/Base'))
 const Notification = require(('../models/Notification'))
 
+
+// PH.deleteOne({ value: 50 }, function (err) {
+//   if(err) console.log(err);
+//   console.log("Successful deletion");
+// });
 //const dummyData = helpers.generateDummyData(0,100)
 //console.table(dummyData)
 //helpers.purgeModel(PH)

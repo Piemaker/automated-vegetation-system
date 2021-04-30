@@ -1,9 +1,9 @@
-//graph values
-const TemperatureThreshold = { min: 20, max: 50 }
+//graph values theshold are imported from navigation.js file
+//const TemperatureThreshold = { min: 20, max: 50 }
 const TemperatureTitles = { x: "Date", y: "Degree Celsius °C" }
-const PHThreshold = { min: 6, max: 8 }
+//const PHThreshold = { min: 6, max: 8 }
 const PHTitles = { x: "Date", y: "PH Level" }
-const ElectricThreshold = { min: 10, max: 30 }
+//const ElectricThreshold = { min: 10, max: 30 }
 const ElectricTitles = { x: "Date", y: "Electric Conductivity mV" }
 
 

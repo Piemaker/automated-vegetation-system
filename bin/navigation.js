@@ -97,3 +97,130 @@ fetch(
   
   })
 })
+
+const TemperatureThreshold = { min: 20, max: 50 };
+const PHThreshold = { min: 6, max: 8 };
+const ElectricThreshold = { min: 10, max: 30 };
+
+const checkTreshold = (value, thresholdObj) => {
+  if (value >= thresholdObj.min && value <= thresholdObj.max) {
+    return true;
+  } else return false;
+};
+//function to change color of status box based on threshold condition
+const colorStatusBox = (statusBox, condition) => {
+  if (condition) {
+    statusBox.classList.add("clear");
+  } else {
+    statusBox.classList.add("alert");
+  }
+};
+
+//fetch data of each sensor and append it as a quick status
+const fetchStatus = ()=>{
+  const abbreviation = ["Temp", "PH", "EC"];
+  const models = ["Temperature", "PH", "ElectricConductivity"];
+  Promise.all([
+    fetch(
+      "https://automated-vegetation-system.piemaker1.repl.co/api/exportData/",
+      {
+        method: "POST", // or 'PUT'
+        headers: {
+          "Content-Type": "application/json"
+        },
+        mode: "cors",
+
+        body: JSON.stringify({
+          modelName: models[0],
+          minDate: "01/01/1970",
+          maxDate: "01/01/2222",
+          pageNu: 0,
+          limit: 1,
+          minValue: 0,
+          maxValue: 1000
+        })
+      }
+    ),
+    fetch(
+      "https://automated-vegetation-system.piemaker1.repl.co/api/exportData/",
+      {
+        method: "POST", // or 'PUT'
+        headers: {
+          "Content-Type": "application/json"
+        },
+        mode: "cors",
+
+        body: JSON.stringify({
+          modelName: models[1],
+          minDate: "01/01/1970",
+          maxDate: "01/01/2222",
+          pageNu: 0,
+          limit: 1,
+          minValue: 0,
+          maxValue: 1000
+        })
+      }
+    ),
+    fetch(
+      "https://automated-vegetation-system.piemaker1.repl.co/api/exportData/",
+      {
+        method: "POST", // or 'PUT'
+        headers: {
+          "Content-Type": "application/json"
+        },
+        mode: "cors",
+
+        body: JSON.stringify({
+          modelName: models[2],
+          minDate: "01/01/1970",
+          maxDate: "01/01/2222",
+          pageNu: 0,
+          limit: 1,
+          minValue: 0,
+          maxValue: 1000
+        })
+      }
+    )
+  ])
+    .then(function (responses) {
+      // Get a JSON object from each of the responses
+      return Promise.all(
+        responses.map(function (response) {
+          return response.json();
+        })
+      );
+    })
+    .then(function (data) {
+      const statusBoxes = document.getElementsByClassName("status-box");
+      console.log(data);
+      for (let i = 0; i < statusBoxes.length; i++) {
+        statusBoxes[i].innerHTML = `<ul>
+    <li>Sensor: ${abbreviation[i]}</li>
+    <li>Reading: ${data[i][0].value}</li>
+    <li>Time: ${new Date(data[i][0].date).toLocaleDateString()}</li>
+    </ul>`;
+        //check if value is within threshold
+        if (abbreviation[i] == "Temp") {
+          colorStatusBox(
+            statusBoxes[i],
+            checkTreshold(data[i][0].value, TemperatureThreshold)
+          );
+        } else if (abbreviation[i] == "PH") {
+          colorStatusBox(
+            statusBoxes[i],
+            checkTreshold(data[i][0].value, PHThreshold)
+          );
+        } else if (abbreviation[i] == "EC") {
+          colorStatusBox(
+            statusBoxes[i],
+            checkTreshold(data[i][0].value, ElectricThreshold)
+          );
+        }
+      }
+    })
+    .catch(function (error) {
+      // if there's an error, log it
+      console.log(error);
+    });
+}
+fetchStatus();

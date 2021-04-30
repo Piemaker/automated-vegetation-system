@@ -46,6 +46,7 @@ app.post('/',(req,res)=>{
   console.log("model value is : ",model)
   let dataObj = {value : value , date : new Date (date)}
   helpers.insertOne(model,dataObj)
+  res.status(200).send({ success: "success!" });
 
 })
 
