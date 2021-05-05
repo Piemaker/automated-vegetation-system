@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" >
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <title><%- title %></title>
+      <link rel="stylesheet" href="navigation.css">
+      <!--  font awesome !-->
+      <script src="https://kit.fontawesome.com/a87a7d7cfe.js" crossorigin="anonymous"></script>
+      <!-- font awesome animation !-->
+      <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.3.0/font-awesome-animation.min.css'>
+   </head>
+   <body>
+      <!-- partial:index.partial.html -->
+      <!DOCTYPE html>
+      <html id="html" lang="en">
+         <body>
+            <div id="modal">
+               <div id="modal-content">
+                  <span id="close">&times</span>
+                  <a class="link bottom-border" href="/"><i class="fas fa-home"></i>Home</a>
+                  <a class="link bottom-border" href="/statistics"><i class="fas fa-signal"></i>
+                  </svg>Statistics</a>
+                  <a href="/notification" class="link bottom-border"><i class="far fa-bell faa-ring animated"> <span class="notification-count"></span></i>Notification</a>        
+                  <a class="link bottom-border"><i class="fas fa-door-open"></i>Log Out</a>
+               </div>
+            </div>
+            <div class="navbar" id="nav">
+               <a id="menu" class="link"><i class="fas fa-list fa-3x"></i></a>
+               <a id="logo" href="/" class="link"> <i class="fas fa-bug fa-3x"></i> Bugs!</a>
+               <a href="/statistics" class="link element">Statistcs</a>
+               <a href="/notification" class="link element">Notifications
+               <span class="notification-count"></span>
+               </a>
+               <a class="link element">Element Name 3</a>
+            </div>
+            <div id="scroll-up-button" class="scroll-up-button"><i class="fas fa-chevron-circle-up fa-3x"></i> </div>
+            <div>
+               <%- body %>
+            </div>
+         </body>
+      </html>
+      <!-- partial -->
+      <script  src="navigation.js"></script>
+   </body>
+</html>

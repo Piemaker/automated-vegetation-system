@@ -3,8 +3,7 @@ const app = express()
 const Notification = require('../models/Notification')
 
 app.get('/', (req, res) => {
-  res.sendFile(process.cwd() + '/views/notification.html')
-});
+res.render("notification",{title:"Notification Page"})})
 //update the notification model when user reads it
 app.patch('/',(req,res)=>{
   const {id , read} = req.body

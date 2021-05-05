@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="statistics.css">
+<div id='main' class="center">
+   <form id="form" class = "form" action="#" >
+      <div class="row-div margin-top">
+         <div class="column-div">
+            <label for="minValue" class ="label">Start Value</label>
+            <input id="minValue" class="input-field" name="minValue" value= -1000 type="number"></input>
+            <label for="minDate" class ="label">From</label>
+            <input id="minDate" name="minDate" class="input-field" value= "1970-01-10" type="date"></input>
+         </div>
+         <div class="column-div ">
+            <label for="maxValue" class ="label">End Value</label>
+            <input id="maxValue" name="maxValue" class="input-field" value= 1000 type="number"></input>
+            <label for="maxDate" class ="label">To</label>
+            <input id="maxDate" name="maxDate" class="input-field" value= "2222-01-01" type="date"></input>
+         </div>
+      </div>
+      <div class = "row-div">
+         <div class = "column-div margin-bottom">
+            <label for="limit-field" class ="label">Points/Graph</label>
+            <input id = "limit-field" type ="number" class = "input-field" name = "limit" value = 100></input>
+         </div>
+      </div>
+      <input id="reset-button" class="form-button red-button margin-bottom" type="reset"></input>
+      <input id="submit-button" class="form-button blue-button margin-bottom" type="submit"></input>
+   </form >
+   <div id="svg" class="svg-container"></div>
+   <div id=radio-div>
+      <input type="radio" class="radio-button" id="temperature-radio" name="graphs" checked="checked" value="Temperature"></input>
+      <label for="temperature-radio"><i class="fas fa-2x fa-temperature-high"></i></label>
+      <input type="radio" id="ph-radio" name="graphs" class="radio-button" value="PH"></input>
+      <label for="ph-radio"><i class="fas fa-2x fa-thermometer"></i></label>
+      <input type="radio" id="electric-radio" name="graphs" class="radio-button" value="ElectricConductivity"></input>
+      <label for="electric-radio"><i class="fas  fa-2x fa-bolt"></i></label>
+   </div>
+   <div id="page-buttons">
+      <button id="previous-button" class="limit-button fas fa-chevron-left">
+      </button>
+      <button id="next-button" class="limit-button fa fa-chevron-right"></button>
+   </div>
+</div>
+</div>
+<script src="https://d3js.org/d3-dsv.v2.min.js"></script>
+<script src="https://d3js.org/d3-fetch.v2.min.js"></script>
+</html>
+<!-- partial -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/6.1.1/d3.min.js'></script>
+<script  src="statistics.js"></script>

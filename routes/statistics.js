@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 
 app.get('/', (req, res) => {
-  res.sendFile(process.cwd() + '/views/statistics.html')
+  res.render("statistics",{title:"Statistics Page"})
 });
 
 module.exports = app

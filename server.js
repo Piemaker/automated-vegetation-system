@@ -4,10 +4,22 @@
 // init project
 const express = require('express');//for backend api development
 const app = express();
+
+//import ejs to reuse code
+
+const expressLayouts = require('express-ejs-layouts')
+
+// Set Templating Engine
+app.use(expressLayouts)
+//app.set('layout', './layouts/full-width')
+app.set('view engine', 'ejs')
+
+
 const path = require('path');//used to concate directories
 const faker = require('faker');//for dummy generation
 const bodyParser = require("body-parser")//used to parse form responses
-const mongoose = require("mongoose")//for database schema building
+const mongoose 
+= require("mongoose")//for database schema building
 //to allow external sites to get json data
 const cors = require('cors');
 //mount body parser
