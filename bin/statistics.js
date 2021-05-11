@@ -312,7 +312,9 @@ Value: ${d3.select(event.target).attr("data-value")} `)
     .attr("id", "x-axis")
     .attr("transform", "translate(0, " + (h - 2 * padding) + ")")
     .call(xAxis)
-    .style("font-size", "16px")
+    .style("font-size", "18px")
+    .style("font-weight", "bolder")
+
 
 //call yaxis and apped it at the left of the svg
   const yAxis = d3.axisLeft(yScale);
@@ -320,7 +322,9 @@ Value: ${d3.select(event.target).attr("data-value")} `)
     .attr("id", "y-axis")
     .attr("transform", `translate(${2 * padding},0)`)
     .call(yAxis)
-    .style("font-size", "16px")
+    .style("font-size", "18px")
+    .style("font-weight", "bolder")
+
 
   //axes text
   //y-axis
