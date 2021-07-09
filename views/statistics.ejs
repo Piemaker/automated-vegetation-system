@@ -81,6 +81,7 @@
    </div>
 </header>
 <div id='main' class="center">
+<h2 class = "label"> You can toggle pages with alt + 1 or alt + 2 </h2>
    <form id="form" class="form" action="#">
       <div class="column-div margin-top">
          <label for="Value" class="label">SET VALUE</label>
@@ -95,9 +96,9 @@
 
          <label for="Date" class="label">SET DATE</label>
          <div class="row-div">
-            <input id="minDate" name="minDate" class="input-field" value="1970-01-10" type="date"></input>
+            <input id="minDate" name="minDate" class="input-field" value=<%- minDate %> type="date"></input>
             <span class="seperator">-</span>
-            <input id="maxDate" name="maxDate" class="input-field" value="2222-01-01" type="date"></input></div>
+            <input id="maxDate" name="maxDate" class="input-field" value=<%- maxDate %> type="date"></input></div>
 
          <div>
             <label for="limit-field" class="label">Points/Graph</label>
