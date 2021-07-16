@@ -2,6 +2,8 @@
 // where your node app starts
 
 // init project
+require('dotenv').config();// for accessing .env variables
+
 const express = require('express');//for backend api development
 const app = express();
 
@@ -25,9 +27,9 @@ const cors = require('cors');
 //mount body parser
 app.use(bodyParser.urlencoded({extended: false})) // for form request to work
 app.use(bodyParser.json()); // for fetch request to work
+require('dotenv').config();// for accessing .env variables
 
-//save DB URL
-process.env.MONGO_URL="mongodb+srv://OSM:databasepassword@cluster0.pk6bc.mongodb.net/<dbname>?retryWrites=true&w=majority" 
+
 //connect to database
 mongoose.connect(process.env.MONGO_URL, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
@@ -57,6 +59,8 @@ const statistics = require('./routes/statistics')
 const notification = require('./routes/notification')
 const importData = require('./routes/importData')
 const exportNotification = require('./routes/exportNotification')
+const upload = require('./routes/upload')
+
 
 
 //set routes
@@ -67,6 +71,8 @@ app.use('/api/exportData',exportData)
 app.use('/notification',notification)
 app.use('/api/importData',importData)
 app.use('/api/exportNotification',exportNotification)
+app.use('/upload',upload)
+
 
 // // Add headers
 // app.use(function (req, res, next) {
