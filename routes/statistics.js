@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
       var tommorow = moment(currentDate, "MM-DD-YYYY").add(1, 'days'); //add a day to make sure the default fetch (with no date change) gets all data containig today's readings
       res.render("statistics",{title:"Statistics Page", minDate : `${data[0].date.toISOString().split('T')[0]}`, maxDate : tommorow.toISOString().split("T")[0] })
     })
-    .catch(err => res.send(err.message))
+    .catch(err => res.status(400).send(err.message))
   
 });
 

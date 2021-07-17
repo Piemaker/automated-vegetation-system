@@ -16,6 +16,7 @@ const ElectricThreshold = { min: 10, max: 30 }
 
 app.post('/',(req,res)=>{
 
+  try{
   const { modelName, value , date } = req.body;
   let model;
   console.log(req.body)
@@ -47,7 +48,11 @@ app.post('/',(req,res)=>{
   let dataObj = {value : value , date : new Date (date)}
   helpers.insertOne(model,dataObj)
   res.status(200).send({ success: "success!" });
-
+}
+catch(err){
+  console.log("Inside import data handler ",err.message)
+  res.status(415).send({"Error": err.message})
+}
 })
 
 

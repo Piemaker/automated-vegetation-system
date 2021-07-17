@@ -14,11 +14,11 @@ app.get('/', (req, res) => {
     .then(data => {
       res.json(data)
     })
-    .catch(err => res.send(err.message))
+    .catch(err => res.status(400).send(err.message))
 });
 
 app.post('/', (req, res) => {
-
+try{
   //res.header("Access-Control-Allow-Origin:*")
   const { modelName, minDate, maxDate , pageNu ,limit , minValue , maxValue } = req.body;
   let model;
@@ -40,7 +40,11 @@ model.find({ value:{ $gte: parseInt(minValue) ,$lte: parseInt(maxValue) } , date
 .limit(parseInt(limit))
 .then(data => {
   res.json(data)
-})
+})}
+catch(err){
+  console.log("Inside export data post handler ",err.message)
+  res.status(400).send({"Error": err.message})
+}
 
 })
 

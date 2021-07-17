@@ -9,7 +9,7 @@ app.patch('/',(req,res)=>{
   const {id , read} = req.body
   Notification.findByIdAndUpdate(id, {read: read})
   .then( data => res.json("Success in updating notificaiton"))
-  .catch(err => res.json(err.message))
+  .catch(err => res.status(400).json(err.message))
 })
 
 module.exports = app

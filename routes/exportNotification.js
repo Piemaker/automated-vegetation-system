@@ -10,7 +10,7 @@ app.get('/', (req, res) => {
     .then(data => {
       res.json(data)
     })
-    .catch(err => res.send(err.message))
+    .catch(err => res.status(400).send(err.message))
 });
 
 module.exports = app

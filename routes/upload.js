@@ -39,11 +39,13 @@ const upload = multer({
 
 app.get('/', (req, res) => {
     res.render("upload", {
-        title: "Upload Page"
+        title: "Upload Page",
+        message: "Please upload an image supported formats are PNG/JPEG up to 5MB."
     })
 });
 
 app.post("/", upload.single("image"), async (req, res, next) => {
+    try{
     //console.log(path.resolve(req.file.destination,'resized',req.file.filename))
     await sharp(req.file.path)
         .resize({
@@ -69,7 +71,16 @@ app.post("/", upload.single("image"), async (req, res, next) => {
             contentType: 'image/png'
         }
     }
-
+    res.status(200).render("upload", {
+        title: "Upload Page",
+        message: "Success! upload another..."
+    });
+}
+catch(err){
+    console.log("Inside upload handler ",err.message)
+    res.status(415).send({"Error": err.message})
+    
+}
 })
 
 
