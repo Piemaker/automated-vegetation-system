@@ -1,5 +1,6 @@
 const express = require('express')
 const app = express()
+const moment = require("moment")
 //import models 
 const { Temperature } = require('../models/Base')
 //return page and set title & minimum date of the form to the oldest record in the database and the maximum date to the current date
@@ -9,8 +10,10 @@ app.get('/', (req, res) => {
     .select("date -_id")
     .limit(1)
     .then(data => {
+      
       const currentDate = new Date();
-      res.render("statistics",{title:"Statistics Page", minDate : `${data[0].date.toISOString().split('T')[0]}`, maxDate : currentDate.toISOString().split('T')[0] })
+      var tommorow = moment(currentDate, "MM-DD-YYYY").add(1, 'days'); //add a day to make sure the default fetch (with no date change) gets all data containig today's readings
+      res.render("statistics",{title:"Statistics Page", minDate : `${data[0].date.toISOString().split('T')[0]}`, maxDate : tommorow.toISOString().split("T")[0] })
     })
     .catch(err => res.send(err.message))
   
