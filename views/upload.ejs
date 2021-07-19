@@ -138,14 +138,18 @@
     
         
 </header>
-<h1 style = "text-align: center"> <%- message %>  </h1>
+<h2 style = "text-align: center"> <%- message %>  </h2>
 
 <form action="/upload"  method="POST" enctype="multipart/form-data">
-    <div>
+    <div id = "form-inner-container">
         <label for="iamge">Please upload a valid image</label>
-        <input id = "image" type="file" name = "image">
-        <img id="imagePreview" src="#" alt="Your image" />
-        <button sumbit>Submit</button>
+        <div id="image-button-container" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <img src="iamges/upload-img.png" alt="Upload Image">
+        <input id = "image-button" type="file" name = "image">
+
+        </div>
+        <img id="imagePreview" src="/iamges/image-preview.png" alt="Your image" />
+        <button sumbit>Upload</button>
     </div>
 
 </form>

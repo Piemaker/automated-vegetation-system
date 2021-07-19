@@ -115,3 +115,6 @@ This is a web application using :
 ### To do
 1. Receive data from deep learning app
 2. Page to view images
+
+## QR Code for Site
+![QR Code for Site](https://media.milanote.com/p/images/1M5zUZ19blWe7T/lwO/qrcode_automated-vegetation-system.piemaker1.repl.co+%281%29.png)
