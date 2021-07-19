@@ -19,7 +19,7 @@ const Notification = require(('../models/Notification'))
 // });
 //const dummyData = helpers.generateDummyData(0,100)
 //console.table(dummyData)
-// helpers.purgeModel(PH)
+//helpers.purgeModel(PH)
 // helpers.purgeModel(ElectricConductivity)
 // helpers.purgeModel(Temperature)
 // helpers.purgeModel(Notification)

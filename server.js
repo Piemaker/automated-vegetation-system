@@ -25,7 +25,8 @@ const mongoose
 //to allow external sites to get json data
 const cors = require('cors');
 //mount body parser
-app.use(bodyParser.urlencoded({extended: false})) // for form request to work
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: false})); // for form request to work
 app.use(bodyParser.json()); // for fetch request to work
 require('dotenv').config();// for accessing .env variables
 
@@ -47,7 +48,7 @@ app.use(cors());
 
 // your first API endpoint... 
 app.get("/api/hello", function (req, res) {
-  res.json({greeting: 'hello API'});
+  res.status(200).json({greeting: 'hello API'});
 });
 
 
@@ -60,6 +61,8 @@ const notification = require('./routes/notification')
 const importData = require('./routes/importData')
 const exportNotification = require('./routes/exportNotification')
 const upload = require('./routes/upload')
+const exportImg = require('./routes/exportImg')
+
 
 
 
@@ -72,6 +75,8 @@ app.use('/notification',notification)
 app.use('/api/importData',importData)
 app.use('/api/exportNotification',exportNotification)
 app.use('/upload',upload)
+app.use('/exportImg',exportImg)
+
 
 
 // // Add headers
@@ -98,3 +103,4 @@ app.use('/upload',upload)
 var listener = app.listen(process.env.PORT||3000, function () {
   console.log('Your app is listening on port ' + listener.address().port);
 });
+

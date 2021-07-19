@@ -8,6 +8,7 @@ const { ElectricConductivity } = require('../models/Base')
 const Notification = require('../models/Notification')
 //import helper functions
 const helpers =  require('../bin/helpers')
+const moment = require("moment")
 //graph values
 const TemperatureThreshold = { min: 20, max: 50 }
 const PHThreshold = { min: 6, max: 8 }
@@ -17,7 +18,15 @@ const ElectricThreshold = { min: 10, max: 30 }
 app.post('/',(req,res)=>{
 
   try{
-  const { modelName, value , date } = req.body;
+  let { modelName, value , date } = req.body;
+  //check if date is in "2021-18-29T00:38:17.613Z" format
+  if (date.includes(":")){
+
+  }
+  else{
+    //use moment to consturct a date object
+     date = moment(date)
+  }
   let model;
   console.log(req.body)
   //check model type 
@@ -47,7 +56,7 @@ app.post('/',(req,res)=>{
   console.log("model value is : ",model)
   let dataObj = {value : value , date : new Date (date)}
   helpers.insertOne(model,dataObj)
-  res.status(200).send({ success: "success!" });
+  res.status(200).send({ success: "Success in inserting data!" });
 }
 catch(err){
   console.log("Inside import data handler ",err.message)

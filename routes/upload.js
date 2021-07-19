@@ -3,6 +3,8 @@ const app = express()
 const fs = require('fs');
 const path = require('path'); //used to concate directories
 const sharp = require("sharp"); //for image compression
+const Image = require("../models/Image")
+const helpers =  require('../bin/helpers')
 //setup for uploading image using multer
 
 const multer = require('multer');
@@ -45,42 +47,93 @@ app.get('/', (req, res) => {
 });
 
 app.post("/", upload.single("image"), async (req, res, next) => {
-    try{
-    //console.log(path.resolve(req.file.destination,'resized',req.file.filename))
-    await sharp(req.file.path)
-        .resize({
-            width: 224,
-            height: 224,
-            fit: sharp.fit.fill
-        })
-        .toFormat('jpeg')
-        .jpeg({
-            quality: 100,
-            chromaSubsampling: '4:4:4',
-            force: true
-        })
-        .toFile(
-            path.resolve(req.file.destination, 'resized', req.file.filename)
-        )
-    fs.unlinkSync(req.file.path)
-    //console.log(path.join(process.cwd() + req.file.destination + "resized" + req.file.filename))
-    var obj = {
-        name: req.body.name,
-        img: {
-            data: fs.readFileSync(path.resolve(process.cwd(), req.file.destination, "resized", req.file.filename)),
-            contentType: 'image/png'
+    try {
+        //console.log(path.resolve(req.file.destination,'resized',req.file.filename))
+        await sharp(req.file.path)
+            .resize({
+                width: 224,
+                height: 224,
+                fit: sharp.fit.fill
+            })
+            .toFormat('jpeg')
+            .jpeg({
+                quality: 100,
+                chromaSubsampling: '4:4:4',
+                force: true
+            })
+            .toFile(
+                path.resolve(req.file.destination, 'resized', req.file.filename)
+            )
+        fs.unlinkSync(req.file.path)
+        //console.log(path.join(process.cwd() + req.file.destination + "resized" + req.file.filename))
+
+        // Python request part
+
+        // const http = require('http');
+
+        // const postData = JSON.stringify({
+        //     image: obj.img.data
+
+        // });
+
+        // const options = {
+        //     hostname: '127.0.0.1',
+        //     port: 3000,
+        //     path: '/exportImg',
+        //     method: 'POST',
+        //     headers: {
+        //         'Content-Type': 'application/json',
+        //         'Content-Length': Buffer.byteLength(postData)
+        //     }
+        // };
+
+        // const requset = http.request(options, (res) => {
+        //     console.log(`STATUS: ${res.statusCode}`);
+        //     console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
+        //     res.setEncoding('utf8');
+        //     res.on('data', (chunk) => {
+        //         console.log(`BODY: ${chunk}`);
+        //     });
+        //     res.on('end', () => {
+        //         console.log('No more data in response.');
+        //     });
+        // });
+
+        // requset.on('error', (e) => {
+        //     console.error(`problem with request: ${e.message}`);
+        // });
+
+        // // Write data to request body
+        // requset.write(postData);
+        // requset.end();
+
+        //Upload "processed" image to model
+
+        //Prepare image object
+        const imageObj = {
+            name: req.body.name,
+            img: {
+                data: fs.readFileSync(path.resolve(process.cwd(), req.file.destination, "resized", req.file.filename)),
+                contentType: 'image/jpeg'
+            },
+            date: new Date()
         }
+        
+        //Insert object into model
+        helpers.insertOne(Image,imageObj)
+
+        res.status(200).render("upload", {
+            title: "Upload Page",
+            message: "Success! upload another..."
+        });
+
+    } catch (err) {
+        console.log("Inside upload handler ", err.message)
+        res.status(415).send({
+            "Error": err.message
+        })
+
     }
-    res.status(200).render("upload", {
-        title: "Upload Page",
-        message: "Success! upload another..."
-    });
-}
-catch(err){
-    console.log("Inside upload handler ",err.message)
-    res.status(415).send({"Error": err.message})
-    
-}
 })
 
 
