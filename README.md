@@ -39,6 +39,15 @@ You can do the following:
 ![Notification Page](https://media.milanote.com/p/images/1M4WrC19bgf5dE/gU5/image.png)
 
 ***
+
+### Uplaod Page
+The user can upload an image and if it's of a valid fomrat and size (PNG/JPEG max 5MB) then the image will be compressed to 224*224 pixels and converted to JPEG to be suitable for the python server to handle it, the image is then sent to the python server and processed, and the returned image object is then saved in the datebase for later view. 
+
+***
+
+### View Image Page
+Here the use can view the latest processed images from the deep learning algorithim giving important information about the stage of the plant and if it's infected or not, the user can view older and newer images just like in the stats page.
+
 ## Tools
 This is a web application using :
    1. HTML to define the content of web pages (later used a templating engine (EJS).
@@ -47,7 +56,7 @@ This is a web application using :
    4. Node JS and Express for backend development (server intiallization, routing and serving of web content).
    5. MongoDB for database storage.
    6. Mongoose for object modeling of the database (defintion of schemas for each table in the database).
-   7. Replit as an IDE and the current server hosting.
+   7. Replit/VS-Code as an IDE and the current server hosting.
    8. github for version control.
 ***
 ## Diagrams
@@ -65,6 +74,20 @@ This is a web application using :
 ![Notification Page Sequence Diagram](https://lucid.app/publicSegments/view/f66941cc-f6d3-43bd-884d-17ce6a03e953/image.png)
 
 ***
+
+### Upload Page Sequence Diagram
+![Upload Page Sequence Diagram](https://lucid.app/publicSegments/view/d3b6df5a-0599-4e32-9b06-1f021910ba7e/image.png)
+
+***
+
+### View Image Page Sequence Diagram
+![View Image Page Sequence Diagram](https://lucid.app/publicSegments/view/14941fa9-8927-4850-b498-11bcaea7d2b1/image.png)
+
+***
+## Old Site vs New Site
+![Old site vs New Site](https://media.milanote.com/p/images/1M5wnC19blWe7Q/nIE/BeFunky-collage+%281%29.jpg)
+![Old Site vs New Stie](https://media.milanote.com/p/images/1M5wsr19blWe7R/tbt/BeFunky-collage%20%282%29.jpg)
+
 ## Project Steps
 ### Finished Project Steps
 1. Boiler Plate for Project
@@ -82,7 +105,13 @@ This is a web application using :
 13. Make a diagram of the project
 14. Add notification counter
 15. Current status for each table in home page
+16. Receive data from embedded app
+17. Page to upload images
+18. Saving images locally/DB
+19. Diagram for upload page
+20. Diagram for view page
+    
 
 ### To do
-1. Receive data from embedded app
-2. Receive data from deep learning app
+1. Receive data from deep learning app
+2. Page to view images
