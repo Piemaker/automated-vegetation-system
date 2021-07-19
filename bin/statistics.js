@@ -95,7 +95,7 @@ const handleChange = (event) => {
    data = Object.assign({},formData,{modelName:checkedRadioValue},{pageNu:pageNu})
 
   //create request
-  fetch('https://automated-vegetation-system.piemaker1.repl.co/api/exportData/', {
+  fetch('/api/exportData/', {
     method: 'POST', // or 'PUT'
     headers: {
       'Content-Type': 'application/json',
@@ -133,7 +133,7 @@ const handlePageButton = (event) => {
   data = constructPayload(event);
 
   //create request
-  fetch('https://automated-vegetation-system.piemaker1.repl.co/api/exportData/', {
+  fetch('/api/exportData/', {
     method: 'POST', // or 'PUT'
     headers: {
       'Content-Type': 'application/json',
@@ -382,7 +382,7 @@ Value: ${d3.select(event.target).attr("data-value")} `)
 
 //call graph method
 const req = new XMLHttpRequest();
-req.open("GET", 'https://automated-vegetation-system.piemaker1.repl.co/api/exportData/', true);
+req.open("GET", '/api/exportData/', true);
 req.send();
 req.onload = function() {
   const json = JSON.parse(req.responseText);
@@ -418,7 +418,7 @@ const handleSubmit = (event)=>{
     const data = Object.assign({},formData,{modelName:checkedRadioValue},{pageNu:pageNu})
 
 //create request
-  fetch('https://automated-vegetation-system.piemaker1.repl.co/api/exportData/', {
+  fetch('/api/exportData/', {
     method: 'POST', // or 'PUT'
     headers: {
       'Content-Type': 'application/json',

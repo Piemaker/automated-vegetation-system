@@ -64,7 +64,7 @@ window.addEventListener("load",()=>{
 
   //create request to notificaiton model
 fetch(
-  "https://automated-vegetation-system.piemaker1.repl.co/api/exportNotification/",
+  "/api/exportNotification/",
   {
     method: "GET", // or 'PUT'
     headers: {
@@ -122,7 +122,7 @@ const fetchStatus = ()=>{
   const models = ["Temperature", "PH", "ElectricConductivity"];
   Promise.all([
     fetch(
-      "https://automated-vegetation-system.piemaker1.repl.co/api/exportData/",
+      "/api/exportData/",
       {
         method: "POST", // or 'PUT'
         headers: {
@@ -142,7 +142,7 @@ const fetchStatus = ()=>{
       }
     ),
     fetch(
-      "https://automated-vegetation-system.piemaker1.repl.co/api/exportData/",
+      "/api/exportData/",
       {
         method: "POST", // or 'PUT'
         headers: {
@@ -162,7 +162,7 @@ const fetchStatus = ()=>{
       }
     ),
     fetch(
-      "https://automated-vegetation-system.piemaker1.repl.co/api/exportData/",
+      "/api/exportData/",
       {
         method: "POST", // or 'PUT'
         headers: {

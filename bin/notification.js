@@ -18,7 +18,7 @@ update (read/unread) field upon user interaction, keep track of unread count, fe
 const updateNotification = (event) => {
   //get id of notification
   const id = event.target.getElementsByTagName("span")[0].innerHTML;
-  fetch("https://automated-vegetation-system.piemaker1.repl.co/notification", {
+  fetch("/api/notification", {
     method: "PATCH", // or 'PUT'
     headers: {
       "Content-Type": "application/json"
@@ -91,7 +91,7 @@ const appendNotification = (id, model, value, condition, deviation, date) => {
 
 //create request to notificaiton model
 fetch(
-  "https://automated-vegetation-system.piemaker1.repl.co/api/exportNotification/",
+  "/api/exportNotification/",
   {
     method: "GET", // or 'PUT'
     headers: {
