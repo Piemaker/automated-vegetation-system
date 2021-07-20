@@ -18,7 +18,7 @@ update (read/unread) field upon user interaction, keep track of unread count, fe
 const updateNotification = (event) => {
   //get id of notification
   const id = event.target.getElementsByTagName("span")[0].innerHTML;
-  fetch("/api/notification", {
+  fetch("/notification", {
     method: "PATCH", // or 'PUT'
     headers: {
       "Content-Type": "application/json"
