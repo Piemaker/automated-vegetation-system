@@ -15,7 +15,7 @@ scrollUpButton.addEventListener("click", scrollUp);
 //shows button after 20% of scroll height
 const handleScroll = () => {
   var scrollTotal = root.scrollHeight - root.clientHeight;
-  console.log(scrollTotal, root.scrollTop);
+  //console.log(scrollTotal, root.scrollTop);
   if (root.scrollTop / scrollTotal >= 0.2) {
     scrollUpButton.classList.add("show-scroll-button");
   } else {
@@ -192,7 +192,7 @@ const fetchStatus = ()=>{
     })
     .then(function (data) {
       const statusBoxes = document.getElementsByClassName("status-box");
-      console.log(data);
+      //console.log(data);
       for (let i = 0; i < statusBoxes.length; i++) {
         statusBoxes[i].innerHTML = `<ul>
     <li>Sensor: ${abbreviation[i]}</li>

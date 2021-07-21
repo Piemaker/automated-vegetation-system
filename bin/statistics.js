@@ -14,11 +14,11 @@ let pageNu  = 0;
 const checkCheckedRadio = () => {
   const radioDiv = document.getElementById('radio-div')
   var htmlCollection = radioDiv.getElementsByTagName("input");
-  console.log(htmlCollection)
+  //console.log(htmlCollection)
   //you can't use filter on an htmlCollection must convert it into a normal array
   var radioButtonsArray = [...htmlCollection]
   var checkedRadio = radioButtonsArray.filter(radio => radio.checked)
-  console.log("Checked radio button is :", checkedRadio[0].value)
+  //console.log("Checked radio button is :", checkedRadio[0].value)
   return checkedRadio[0]
 }
 
@@ -44,7 +44,7 @@ const getDates = () => {
   const svg = d3.select("#svg-graph")
   const lastRectDate = svg.attr("max-date")
   const firstRectDate = svg.attr("min-date")
-  console.log("first rect value", firstRectDate, "last rect  value", lastRectDate)
+  //console.log("first rect value", firstRectDate, "last rect  value", lastRectDate)
   return { lastRectDate: lastRectDate, firstRectDate: firstRectDate }
 }
 //construct payload based on user choices, last and first buttons have been removed in this itteration
@@ -69,7 +69,7 @@ const constructPayload = (event) => {
     data = { action: "first", modelName: checkedRadioValue, minDate: dateObj.firstRectDate, maxDate: dateObj.lastRectDate }
 
   }
-  console.log(data)
+  //console.log(data)
   return data;
 
 }
@@ -107,7 +107,7 @@ const handleChange = (event) => {
   })
     .then(response => response.json())
     .then(data => {
-      console.log('Success:', data);
+      //console.log('Success:', data);
       //graph data 
       d3.select("#svg-graph").remove()
       const dataSet = data.map(x => { return { value: x.value, date: new Date(Date.parse(x.date)) } })
@@ -145,7 +145,7 @@ const handlePageButton = (event) => {
   })
     .then(response => response.json())
     .then(data => {
-      console.log('Success:', data);
+      //console.log('Success:', data);
       //graph data if there still any
       if (data.length != 0) {
         //check if first page and hide previous button accordingly
@@ -209,10 +209,10 @@ const graph = (dataSet, threshold, titles) => {
 
 
 
-  console.log("Maximum x value " + maxX);
-  console.log("Minimum x value " + minX);
-  console.log("Maximum y value " + maxY);
-  console.log("Minimum y value " + minY);
+  //console.log("Maximum x value " + maxX);
+  //console.log("Minimum x value " + minX);
+  //console.log("Maximum y value " + maxY);
+  //console.log("Minimum y value " + minY);
 
 
   //x & y scales (scales are used to define each point location on the svg element by setting the domain of the points and mapping them to the range/length of the svg)
@@ -387,7 +387,7 @@ req.send();
 req.onload = function() {
   const json = JSON.parse(req.responseText);
   const dataSet = json.map(x => { return { value: x.value, date: new Date(Date.parse(x.date)) } })
-  console.table(dataSet);
+  //console.table(dataSet);
   assignGraphData(dataSet)
 }
 checkIfFirstPage();
@@ -402,7 +402,7 @@ const minDate = form.get('minDate');
 const maxDate = form.get('maxDate');
 const limit = form.get('limit')
 const formData = {minValue : minValue , maxValue : maxValue , minDate : minDate , maxDate : maxDate , limit : limit}
-console.log(formData)
+//console.log(formData)
 return formData;
 }
 getFormData()
@@ -430,7 +430,7 @@ const handleSubmit = (event)=>{
   })
     .then(response => response.json())
     .then(data => {
-      console.log('Success:', data);
+      //console.log('Success:', data);
       //graph data 
       d3.select("#svg-graph").remove()
       const dataSet = data.map(x => { return { value: x.value, date: new Date(Date.parse(x.date)) } })

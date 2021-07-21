@@ -5,15 +5,15 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1" />
    <title><%- title %></title>
-   
+
    <link rel="icon shortuct" type="image/x-icon" href="../favicon.ico">
 
    <link rel="apple-touch-icon" sizes="180x180" href="iamges\favicon\apple-touch-icon.png">
-   
+
    <link rel="icon" type="image/png" sizes="32x32" href="iamges\favicon\favicon-32x32.png">
    <link rel="icon" type="image/png" sizes="16x16" href="iamges\favicon\favicon-16x16.png">
    <link rel="icon shortuct" type="image/x-icon" href="iamges\favicon\favicon.ico">
-   <link rel="shortcut icon" href="iamges\favicon\favicon-32x32.png" type="image/x-icon"/>
+   <link rel="shortcut icon" href="iamges\favicon\favicon-32x32.png" type="image/x-icon" />
    <link rel="stylesheet" href="navigation.css">
    <!--  font awesome !-->
    <script src="https://kit.fontawesome.com/a87a7d7cfe.js" crossorigin="anonymous"></script>
@@ -44,6 +44,7 @@
             <a href="/notification" class="link bottom-border"><i class="far fa-bell faa-ring animated"> <span
                      class="notification-count"></span></i>Notification</a>
             <a href="/upload" class="link bottom-border"><i class="fas fa-upload"></i>Uploads</a>
+            <a href="/view" class="link bottom-border"><i class="fas fa-image"></i>View</a>
          </div>
       </div>
       <div class="navbar" id="nav">
@@ -53,7 +54,15 @@
          <a href="/notification" class="link element">Notifications
             <span class="notification-count"></span>
          </a>
-         <a class="link element" href="/upload">Upload</a>
+         <div id="dropdown-container" class="link element">Images<i class="fas fa-chevron-down fa-1x"></i> 
+            <div class="dropdown">
+               <a class="link element" href="/upload">Upload</a>
+
+               <a class="link element" href="/view">View</a>
+            </div>
+
+
+         </div>
       </div>
       <div id="scroll-up-button" class="scroll-up-button"><i class="fas fa-chevron-circle-up fa-3x"></i> </div>
       <main>

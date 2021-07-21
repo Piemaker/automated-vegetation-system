@@ -28,7 +28,7 @@ const updateNotification = (event) => {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log("Success:", data);
+      //console.log("Success:", data);
     })
     .catch((error) => {
       console.error("Error:", error);
@@ -102,7 +102,7 @@ fetch(
 )
   .then((response) => response.json())
   .then((data) => {
-    console.log("Success:", data);
+    //console.log("Success:", data);
     //check if response is empty show empty notification message
     if (data.length == 0) {
       let emptyNotification = document.createElement("div");
