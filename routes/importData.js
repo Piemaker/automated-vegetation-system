@@ -2,66 +2,105 @@
 const express = require('express')
 const app = express()
 //import models 
-const { Temperature } = require('../models/Base')
-const { PH } = require('../models/Base')
-const { ElectricConductivity } = require('../models/Base')
+const {
+  Temperature
+} = require('../models/Base')
+const {
+  PH
+} = require('../models/Base')
+const {
+  ElectricConductivity
+} = require('../models/Base')
+const {
+  DHT
+} = require('../models/Base')
+
 const Notification = require('../models/Notification')
 //import helper functions
-const helpers =  require('../bin/helpers')
+const helpers = require('../bin/helpers')
 const moment = require("moment")
 //graph values
-const TemperatureThreshold = { min: 20, max: 50 }
-const PHThreshold = { min: 6, max: 8 }
-const ElectricThreshold = { min: 10, max: 30 }
+const TemperatureThreshold = {
+  min: 20,
+  max: 50
+}
+const PHThreshold = {
+  min: 6,
+  max: 8
+}
+const ElectricThreshold = {
+  min: 10,
+  max: 30
+}
+const DHTTreshold = {
+  min: 15,
+  max: 35
+}
 //thresholds are used to evaluate the data value to see if it should be saved as a notificaiton
 
-app.post('/',(req,res)=>{
+app.post('/', (req, res) => {
+    try {
+  
+    let {
+      modelName,
+      value,
+      date
+    } = req.body;
+    //check if date is in "1995-12-17T03:24:00" format
+    if (date.includes("T")) {
 
-  try{
-  let { modelName, value , date } = req.body;
-  //check if date is in "2021-18-29T00:38:17.613Z" format
-  if (date.includes(":")){
+    } else {
+      //use moment to consturct a date object
+      date = moment(date)
+    }
+    let model;
+    console.log(req.body)
+    //check model type 
+    if (modelName == "Temperature") {
+      model = Temperature;
+      //check value if it should be saved as a notificaiton
+      let notificaitonObj = helpers.constructNotificaitonObject(value, TemperatureThreshold, modelName, date)
+      //constructNotificaitonObject() returns null if the value is within acceptable thresholds
+      if (notificaitonObj != null) {
+        helpers.insertOne(Notification, notificaitonObj)
+      }
+    } else if (modelName == "PH") {
+      model = PH;
+      let notificaitonObj = helpers.constructNotificaitonObject(value, PHThreshold, modelName, date)
+      if (notificaitonObj != null) {
+        helpers.insertOne(Notification, notificaitonObj)
+      }
 
+    } else if (modelName == "ElectricConductivity") {
+      model = ElectricConductivity;
+      let notificaitonObj = helpers.constructNotificaitonObject(value, ElectricThreshold, modelName, date)
+      if (notificaitonObj != null) {
+        helpers.insertOne(Notification, notificaitonObj)
+      }
+
+    } else if (modelName == "DHT") {
+      model = DHT;
+      let notificaitonObj = helpers.constructNotificaitonObject(value, DHTTreshold, modelName, date)
+      if (notificaitonObj != null) {
+        helpers.insertOne(Notification, notificaitonObj)
+      }
+    }
+    //insert imported data from MC in to corresponding model
+    console.log("model value is : ", model)
+    let dataObj = {
+      value: value,
+      date: new Date(date)
+    }
+    helpers.insertOne(model, dataObj)
+    res.status(200).send({
+      success: "Success in inserting data!"
+    });
+  } catch (err) {
+    console.log("Inside import data handler ", err.message)
+    res.status(415).send({
+      "Error": err.message
+    })
   }
-  else{
-    //use moment to consturct a date object
-     date = moment(date)
-  }
-  let model;
-  console.log(req.body)
-  //check model type 
-  if (modelName == "Temperature") {
-    model = Temperature;
-    //check value if it should be saved as a notificaiton
-    let notificaitonObj = helpers.constructNotificaitonObject(value, TemperatureThreshold, modelName, date)
-    //constructNotificaitonObject() returns null if the value is within acceptable thresholds
-    if(notificaitonObj != null){
-    helpers.insertOne(Notification, notificaitonObj)}
-  }
-  else if (modelName == "PH") {
-    model = PH;
-    let notificaitonObj = helpers.constructNotificaitonObject(value, PHThreshold, modelName, date)
-    if(notificaitonObj != null){
-    helpers.insertOne(Notification, notificaitonObj)}
-   
-  }
-  else if (modelName == "ElectricConductivity") {
-    model = ElectricConductivity;
-    let notificaitonObj = helpers.constructNotificaitonObject(value, ElectricThreshold, modelName, date)
-    if(notificaitonObj != null){
-     helpers.insertOne(Notification, notificaitonObj)}
-   
-  }
-  //insert imported data from MC in to corresponding model
-  console.log("model value is : ",model)
-  let dataObj = {value : value , date : new Date (date)}
-  helpers.insertOne(model,dataObj)
-  res.status(200).send({ success: "Success in inserting data!" });
-}
-catch(err){
-  console.log("Inside import data handler ",err.message)
-  res.status(415).send({"Error": err.message})
-}
 })
 
 

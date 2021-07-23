@@ -101,6 +101,8 @@ fetch(
 const TemperatureThreshold = { min: 20, max: 50 };
 const PHThreshold = { min: 6, max: 8 };
 const ElectricThreshold = { min: 10, max: 30 };
+const DHTThreshold = { min: 15, max: 35 };
+
 
 const checkTreshold = (value, thresholdObj) => {
   if (value >= thresholdObj.min && value <= thresholdObj.max) {
@@ -118,8 +120,8 @@ const colorStatusBox = (statusBox, condition) => {
 
 //fetch data of each sensor and append it as a quick status
 const fetchStatus = ()=>{
-  const abbreviation = ["Temp", "PH", "EC"];
-  const models = ["Temperature", "PH", "ElectricConductivity"];
+  const abbreviation = ["Temp", "PH", "EC", "DHT"];
+  const models = ["Temperature", "PH", "ElectricConductivity", "DHT"];
   Promise.all([
     fetch(
       "/api/exportData/",
@@ -180,6 +182,25 @@ const fetchStatus = ()=>{
           maxValue: 1000
         })
       }
+    ), fetch(
+      "/api/exportData/",
+      {
+        method: "POST", // or 'PUT'
+        headers: {
+          "Content-Type": "application/json"
+        },
+        mode: "cors",
+
+        body: JSON.stringify({
+          modelName: models[3],
+          minDate: "01/01/1970",
+          maxDate: "01/01/2222",
+          pageNu: 0,
+          limit: 1,
+          minValue: 0,
+          maxValue: 1000
+        })
+      }
     )
   ])
     .then(function (responses) {
@@ -214,6 +235,12 @@ const fetchStatus = ()=>{
           colorStatusBox(
             statusBoxes[i],
             checkTreshold(data[i][0].value, ElectricThreshold)
+          );
+        }
+        else if (abbreviation[i] == "DHT"){
+          colorStatusBox(
+            statusBoxes[i],
+            checkTreshold(data[i][0].value, DHTThreshold)
           );
         }
       }
