@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path'); //used to concate directories
 const sharp = require("sharp"); //for image compression
 const Image = require("../models/Image")
-const helpers =  require('../bin/helpers')
+const helpers = require('../bin/helpers')
 //setup for uploading image using multer
 
 const multer = require('multer');
@@ -46,9 +46,8 @@ app.get('/', (req, res) => {
     })
 });
 
-app.post("/", upload.single("image"), async (req, res, next) => {
+app.post("/", upload.single("imagefile"), async (req, res, next) => {
     try {
-        //console.log(path.resolve(req.file.destination,'resized',req.file.filename))
         await sharp(req.file.path)
             .resize({
                 width: 224,
@@ -65,21 +64,63 @@ app.post("/", upload.single("image"), async (req, res, next) => {
                 path.resolve(req.file.destination, 'resized', req.file.filename)
             )
         fs.unlinkSync(req.file.path)
+      
         //console.log(path.join(process.cwd() + req.file.destination + "resized" + req.file.filename))
+        // const request = require ("request")
+        // fs.createReadStream(req.file.path).pipe( request.post("yousseffekry.pythonanywhere.com"))
+
+        //Prepare image object
+        // const imageObj = {
+        //     name: req.body.name,
+        //     img: {
+        //         data: fs.readFileSync(path.resolve(process.cwd(), req.file.destination, "resized", req.file.filename)),
+        //         contentType: 'image/jpeg'
+        //     },
+        //     date: new Date()
+        // }
+        // const request = require("request")
+        // const formData = {
+        //     imagefile: fs.createReadStream(path.resolve(process.cwd(), req.file.destination, "resized", req.file.filename))
+        //     }
+
+        // request.post({
+        //     url: 'http://127.0.0.1:3000/api',
+        //     formData: formData
+        // }, function optionalCallback(err, httpResponse, body) {
+        //     if (err) {
+        //         return console.error('upload failed:', err);
+        //     }
+        //     console.log('Upload successful!  Server responded with:', body);
+        // });
 
         // Python request part
+        var FormData = require('form-data');
+        let formData = new FormData();
+        const axios = require('axios').default;//used to send image in form
+        // let buffer = fs.readFileSync(path.resolve(process.cwd(), req.file.destination, "resized", req.file.filename));//Buffer isn't accepted by the route handle so stream is used instead
+        let stream = fs.createReadStream(path.resolve(process.cwd(), req.file.destination, "resized", req.file.filename));
+        // const imgBlob = new Blob(buffer, {type: 'image/jpeg'});
+        formData.append("imagefile", stream);
+        axios.post('http://yousseffekry.pythonanywhere.com', formData, {
+                headers: formData.getHeaders()
+            })
+            .then(function (response) {
+                console.log("In the response section: ", response);
+            })
+            .catch(function (error) {
+                console.log("Inside error: ", error);
+            });
 
-        // const http = require('http');
+        // const https = require('https');
 
         // const postData = JSON.stringify({
-        //     image: obj.img.data
+        //     imagefile: imageObj.img.data
 
         // });
 
         // const options = {
-        //     hostname: '127.0.0.1',
-        //     port: 3000,
-        //     path: '/exportImg',
+        //     hostname: 'yousseffekry.pythonanywhere.com',
+        //     path: '/',
         //     method: 'POST',
         //     headers: {
         //         'Content-Type': 'application/json',
@@ -87,9 +128,9 @@ app.post("/", upload.single("image"), async (req, res, next) => {
         //     }
         // };
 
-        // const requset = http.request(options, (res) => {
-        //     console.log(`STATUS: ${res.statusCode}`);
-        //     console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
+        // const requset = https.request(options, (res) => {
+        //     //console.log(`STATUS: ${res.statusCode}`);
+        //     //console.log(`HEADERS: ${JSON.stringify(res.headers)}`);
         //     res.setEncoding('utf8');
         //     res.on('data', (chunk) => {
         //         console.log(`BODY: ${chunk}`);
@@ -104,23 +145,15 @@ app.post("/", upload.single("image"), async (req, res, next) => {
         // });
 
         // // Write data to request body
-        // requset.write(postData);
+        // requset.write(imageObj);
         // requset.end();
 
         //Upload "processed" image to model
 
-        //Prepare image object
-        const imageObj = {
-            name: req.body.name,
-            img: {
-                data: fs.readFileSync(path.resolve(process.cwd(), req.file.destination, "resized", req.file.filename)),
-                contentType: 'image/jpeg'
-            },
-            date: new Date()
-        }
-        
+
+
         //Insert object into model
-        helpers.insertOne(Image,imageObj)
+        //helpers.insertOne(Image, imageObj)
 
         res.status(200).render("upload", {
             title: "Upload Page",

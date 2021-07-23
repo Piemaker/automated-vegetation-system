@@ -51,6 +51,12 @@ app.get("/api/hello", function (req, res) {
   res.status(200).json({greeting: 'hello API'});
 });
 
+// Send current stage to MCU (set to 2 for testing)
+app.get("/api/stage", function (req, res) {
+  res.status(200).json(2);
+});
+
+
 
 //import routes
 const index = require('./routes/index')
@@ -62,6 +68,7 @@ const importData = require('./routes/importData')
 const exportNotification = require('./routes/exportNotification')
 const upload = require('./routes/upload')
 const exportImg = require('./routes/exportImg')
+const result = require("./routes/result")
 
 
 
@@ -76,6 +83,8 @@ app.use('/api/importData',importData)
 app.use('/api/exportNotification',exportNotification)
 app.use('/upload',upload)
 app.use('/exportImg',exportImg)
+app.use('/result',result)
+
 
 
 
