@@ -267,7 +267,7 @@ const fetchStatus = ()=>{
         else if (abbreviation[i] == "Humidity"){
           colorStatusBox(
             statusBoxes[i],
-            checkTreshold(data[i][0].value, OuterTempThreshold)
+            checkTreshold(data[i][0].value, HumidityThreshold)
           );
         }
       }
