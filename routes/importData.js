@@ -86,16 +86,16 @@ app.post('/', (req, res) => {
         helpers.insertOne(Notification, notificaitonObj)
       }
 
-    } else if (modelName == "OuterTemperature") {
-      model = OuterTemperature;
-      let notificaitonObj = helpers.constructNotificaitonObject(value, DHTTreshold, modelName, date)
+    } else if (modelName == "OuterTemp") {
+      model = OuterTemp;
+      let notificaitonObj = helpers.constructNotificaitonObject(value, OuterTempThreshold, modelName, date)
       if (notificaitonObj != null) {
         helpers.insertOne(Notification, notificaitonObj)
       }
     }
     else if (modelName == "Humidity") {
       model = Humidity;
-      let notificaitonObj = helpers.constructNotificaitonObject(value, DHTTreshold, modelName, date)
+      let notificaitonObj = helpers.constructNotificaitonObject(value, HumidityThreshold, modelName, date)
       if (notificaitonObj != null) {
         helpers.insertOne(Notification, notificaitonObj)
       }
