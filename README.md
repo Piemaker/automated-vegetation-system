@@ -2,13 +2,12 @@
 ![Hydroponic System](https://image.freepik.com/free-vector/hydroponic-farm-man-harvesting-organic-vegetable-from-hydrophonic-green-house-concept-cartoon-illustration_201904-462.jpg)
 ***
 ## Description
- This is a web application that aims to provide assistive information through visual representations (graphs) and verbal messages (notification) to help in decision making and monitoring of the plant condition, it is connected to an embedded system providing readings like temperature, and uploads images that get processed by a deep learning algorithim on a seperate server to know the state of the plant.
+ This is a web application that aims to provide assistive information through visual representations (graphs) and verbal messages (notification) to help in decision making and monitoring of the plant condition, it is connected to an embedded system providing readings like temperature, and uploads images that get processed by a deep learning algorithm on a separate server to know the state of the plant.
 ## Features
 
 ### Home Page
 The home page contains the latest readings from each sensor, providing a quick preview of the status of the plant.
-![Home Page1](https://media.milanote.com/p/images/1LGrkk1FNLFpdV/XFv/image.png)
-![Home Page2](https://media.milanote.com/p/images/1M4WcQ19bgf5dz/Rnf/image.png)
+![Home Page1](https://media.milanote.com/p/images/1M75BJ1mjuVZ7K/7pn/home+page.png)
 ***
 ### Stats Page
 You can now navigate to statistics page and get data from 3 tables (temperature, PH, electric conductivity) 
@@ -18,13 +17,12 @@ You can do the following:
 
 ![Statistics Page](https://media.milanote.com/p/images/1M4Wkf19bgf5dA/Fqp/ezgif.com-gif-maker%20%284%29.gif)
 
-![Statistics Page1](https://media.milanote.com/p/images/1M4WlE19bgf5dB/qN8/image.png)
-![Statistics Page2](https://media.milanote.com/p/images/1M4WmG19bgf5dC/3ik/image.png)
+![Statistics Page1](https://media.milanote.com/p/images/1M75BJ1mjuVZ7J/sgY/stats+page.png)
 
-2. You can specify a filter on the minimum value and the max value , the beginning date and the last date as well as the limit of points of each graph, on submitting you will get the result displayed on the corresponding graph , if the filtered result is  greater than the limit you specified you can simply use the next/previous buttons to navigate through the result.
+1. You can specify a filter on the minimum value and the max value , the beginning date and the last date as well as the limit of points of each graph, on submitting you will get the result displayed on the corresponding graph , if the filtered result is  greater than the limit you specified you can simply use the next/previous buttons to navigate through the result.
 
-3. If no filter is specified, the default value will be used.
-4. You can use the reset button to reset the form data to the default.
+2. If no filter is specified, the default value will be used.
+3. You can use the reset button to reset the form data to the default.
 
 ***
 ### Notification page
@@ -34,30 +32,31 @@ You can do the following:
 1. Check if new notification are present notifications include useful information like the measured value, its deviation from norm, its date, if it's below or above average and which table it comes from , if none are present, a notification message will be displayed indicating no notifications are present.
 2. You can mark notifications as read by clicking any of the notification's edges, the notification color will change accordingly, any read notifications will not be shown again.
 3. You can dismiss any notification which will delete the notification and mark it as read; so it won't show again. 
-4. When no notificaion is present; a default message will inform that everthing is ok.
-![Notification Page](https://media.milanote.com/p/images/1M4WqL19bgf5dD/F7k/ezgif.com-gif-maker%20%285%29.gif)
-![Notification Page](https://media.milanote.com/p/images/1M4WrC19bgf5dE/gU5/image.png)
+4. When no notification is present; a default message will inform that everything is ok.
+![Notification Page](https://media.milanote.com/p/images/1M4WqL19bgf5dD/F7k/ezgif.com-gif-maker+%285%29.gif)
+![Notification Page](https://media.milanote.com/p/images/1M75BJ1mjuVZ7I/obm/notification+page.png)
 
 ***
 
-### Uplaod Page
-The user can upload an image and if it's of a valid fomrat and size (PNG/JPEG max 5MB) then the image will be compressed to 224*224 pixels and converted to JPEG to be suitable for the python server to handle it, the image is then sent to the python server and processed, and the returned image object is then saved in the datebase for later view. 
+### Upload Page
+The user can upload an image and if it's of a valid format and size (PNG/JPEG max 5MB) then the image will be compressed to 224*224 pixels and converted to JPEG to be suitable for the python server to handle it, the image is then sent to the python server to processed.
+![Upload Page](https://media.milanote.com/p/images/1M75BJ1mjuVZ7L/86b/upload+page.png)
 
 ***
 
-### View Image Page
-Here the use can view the latest processed images from the deep learning algorithim giving important information about the stage of the plant and if it's infected or not, the user can view older and newer images just like in the stats page.
+### Result Page
+Here the user is redirected to the python server and can view the latest processed images from the deep learning algorithm giving important information about the plant and if it's infected or not.
 
 ## Tools
 This is a web application using :
    1. HTML to define the content of web pages (later used a templating engine (EJS).
    2. CSS to specify the layout of web pages.
    3. JavaScript to program the behavior of web pages.
-   4. Node JS and Express for backend development (server intiallization, routing and serving of web content).
+   4. Node JS and Express for backend development (server initialization, routing and serving of web content).
    5. MongoDB for database storage.
-   6. Mongoose for object modeling of the database (defintion of schemas for each table in the database).
+   6. Mongoose for object modeling of the database (definition of schemas for each table in the database).
    7. Replit/VS-Code as an IDE and the current server hosting.
-   8. github for version control.
+   8. GitHub for version control.
 ***
 ## Diagrams
 
@@ -80,13 +79,9 @@ This is a web application using :
 
 ***
 
-### View Image Page Sequence Diagram
-![View Image Page Sequence Diagram](https://lucid.app/publicSegments/view/14941fa9-8927-4850-b498-11bcaea7d2b1/image.png)
-
-***
 ## Old Site vs New Site
 ![Old site vs New Site](https://media.milanote.com/p/images/1M5wnC19blWe7Q/nIE/BeFunky-collage+%281%29.jpg)
-![Old Site vs New Stie](https://media.milanote.com/p/images/1M5wsr19blWe7R/tbt/BeFunky-collage%20%282%29.jpg)
+![Old Site vs New Site](https://media.milanote.com/p/images/1M5wsr19blWe7R/tbt/BeFunky-collage%20%282%29.jpg)
 
 ## Project Steps
 ### Finished Project Steps
@@ -111,10 +106,6 @@ This is a web application using :
 19. Diagram for upload page
 20. Diagram for view page
     
-
-### To do
-1. Receive data from deep learning app
-2. Page to view images
 
 ## QR Code for Site
 ![QR Code for Site](https://media.milanote.com/p/images/1M5zUZ19blWe7T/lwO/qrcode_automated-vegetation-system.piemaker1.repl.co+%281%29.png)
