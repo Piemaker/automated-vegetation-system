@@ -12,8 +12,12 @@ const {
   ElectricConductivity
 } = require('../models/Base')
 const {
-  DHT
+  OuterTemp
 } = require('../models/Base')
+const {
+  Humidity
+} = require('../models/Base')
+
 
 const Notification = require('../models/Notification')
 //import helper functions
@@ -32,9 +36,13 @@ const ElectricThreshold = {
   min: 10,
   max: 30
 }
-const DHTTreshold = {
+const OuterTempThreshold = {
   min: 15,
   max: 35
+}
+const HumidityThreshold = {
+  min : 30,
+  max : 100
 }
 //thresholds are used to evaluate the data value to see if it should be saved as a notificaiton
 
@@ -78,8 +86,15 @@ app.post('/', (req, res) => {
         helpers.insertOne(Notification, notificaitonObj)
       }
 
-    } else if (modelName == "DHT") {
-      model = DHT;
+    } else if (modelName == "OuterTemperature") {
+      model = OuterTemperature;
+      let notificaitonObj = helpers.constructNotificaitonObject(value, DHTTreshold, modelName, date)
+      if (notificaitonObj != null) {
+        helpers.insertOne(Notification, notificaitonObj)
+      }
+    }
+    else if (modelName == "Humidity") {
+      model = Humidity;
       let notificaitonObj = helpers.constructNotificaitonObject(value, DHTTreshold, modelName, date)
       if (notificaitonObj != null) {
         helpers.insertOne(Notification, notificaitonObj)

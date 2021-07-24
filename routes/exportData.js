@@ -4,7 +4,8 @@ const app = express()
 const { Temperature } = require('../models/Base')
 const { PH } = require('../models/Base')
 const { ElectricConductivity } = require('../models/Base')
-const { DHT } = require('../models/Base')
+const { OuterTemp } = require('../models/Base')
+const { Humidity } = require('../models/Base')
 
 
 //Default response get first 100 point from Temperature model
@@ -34,8 +35,11 @@ try{
   else if (modelName == "ElectricConductivity") {
     model = ElectricConductivity;
   }
-  else if (modelName  == "DHT"){
-    model = DHT;
+  else if (modelName  == "OuterTemp"){
+    model = OuterTemp;
+  }
+  else if (modelName  == "Humidity"){
+    model = Humidity;
   }
 
 model.find({ value:{ $gte: parseInt(minValue) ,$lte: parseInt(maxValue) } , date: { $gte: new Date(minDate) ,$lte: new Date(maxDate) }})

@@ -11,7 +11,10 @@ const {
     ElectricConductivity
 } = require(('../models/Base'))
 const {
-    DHT
+    OuterTemp
+} = require(('../models/Base'))
+const {
+    Humidity
 } = require(('../models/Base'))
 const Notification = require(('../models/Notification'))
 
@@ -27,7 +30,9 @@ const Notification = require(('../models/Notification'))
 // helpers.purgeModel(ElectricConductivity)
 // helpers.purgeModel(Temperature)
 // helpers.purgeModel(Notification)
-// helpers.purgeModel(DHT)
+//helpers.purgeModel(OuterTemp)
+//helpers.purgeModel(Humidity)
+
 
 
 
@@ -37,13 +42,16 @@ const Notification = require(('../models/Notification'))
 // const dummyData2 = helpers.dummyDateAndValue(new Date(2021,5,25),30,0,100,250)
 // const dummyData3 = helpers.dummyDateAndValue(new Date(2021,5,25),30,1,80,250)
 //  const dummyData4 = helpers.dummyDateAndValue(new Date(2021,5,25),30,0,50,250)
+//  const dummyData5 = helpers.dummyDateAndValue(new Date(2021,5,25),30,0,100,250)
 
 
 
 //  helpers.insertDummy(dummyData1,PH)
 // helpers.insertDummy(dummyData2,Temperature)
 // helpers.insertDummy(dummyData3,ElectricConductivity)
-// helpers.insertDummy(dummyData4,DHT)
+// helpers.insertDummy(dummyData4,OuterTemp)
+// helpers.insertDummy(dummyData5,Humidity)
+
 
 
 
